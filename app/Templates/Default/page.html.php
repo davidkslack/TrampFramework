@@ -135,8 +135,6 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li class="active"><a href="/">Home</a></li>
 				<li><a href="/admin/">Admin Home</a></li>
-				<li><a href="/admin/user">Users</a></li>
-				<li><a href="/admin/user/add">User add</a></li>
 			</ul>
 			<form class="navbar-form navbar-right">
 				<input type="text" class="form-control" placeholder="Search...">
