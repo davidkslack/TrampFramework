@@ -8,5 +8,12 @@ namespace Controllers;
 
 class Main extends System\Controller
 {
-
+	/**
+	 * The main function for the index
+	 **/
+	public function index()
+	{
+		// Call the view with the the data to add in
+		$this->show( 'index', $this->data );
+	}
 }
