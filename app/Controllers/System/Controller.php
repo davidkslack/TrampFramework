@@ -22,9 +22,14 @@ class Controller extends Template
 	 */
 	public function createView()
 	{
-		$className = explode( '\\', get_class($this) );
-		$className = end( $className );
-		$this->view = HOME .DS .'app' .DS .'Views' .DS .$className .DS .$this->viewFile .'.php';
+		if($this->view != '')
+		{
+			$className = explode( '\\', get_class($this) );
+			$className = end( $className );
+			$this->view = HOME .DS .'app' .DS .'Views' .DS .$className .DS .$this->viewFile .'.php';
+		}
+		else
+			$this->view = HOME .DS .'app' .DS .'Views' .DS .'Main' .DS .'default.php';
 	}
 
 	/**
@@ -61,7 +66,11 @@ class Controller extends Template
 	 */
 	public function index()
 	{
-		$this->show( );
+		$this->data['title'] = 'Default view';
+		$this->description = 'Messages - Lists all the messages in the system';
+		$this->keywords = 'Messages';
+
+		$this->show( 'default', $this->data );
 	}
 
 	/**
