@@ -141,7 +141,8 @@ class Messages extends System\Controller
 					'type'=>'textarea',
 					'label'=>'Description',
 					'rows'=>6,
-					'disabled'=>true
+					'disabled'=>true,
+					'value'=>'A nice default value'
 				),
 				'user_id' => array(
 					'type'=>'number',
@@ -151,9 +152,10 @@ class Messages extends System\Controller
 					'type'=>'date',
 					'label'=>'Created'
 				),
-				'button' => array(
+				'a_button' => array(
 					'type'=>'button',
-					'label'=>'A button'
+					'label'=>'A button',
+					'value'=>'This is a button'
 				),
 				'file' => array(
 					'type'=>'file',

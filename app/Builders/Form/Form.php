@@ -25,6 +25,7 @@ class Form
 	private $groupValidation = '';
 	private $groupMultiple = '';
 	private $groupDisabled = '';
+	private $groupValue = '';
 
 	/**
 	 * Create the form
@@ -66,14 +67,25 @@ class Form
 			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
 			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
+			$this->groupValue = isset($this->groupData['value']) ? $this->groupData['value'] : '';
 
 			// Add the Bootstrap class if we don't add anything
-			if(isset($this->groupData['classes']))
+			/*if(isset($this->groupData['classes']))
 				$this->groupClasses = ' class="' .$this->groupData['classes'] .'"';
 			elseif($this->groupData['type'] != 'radio' && $this->groupData['type'] != 'checkbox')
 				$this->groupClasses = ' class="form-control"';
+			elseif($this->groupData['type'] == 'button')
+				$this->groupClasses = ' class="btn btn-default"';
 			else
-				$this->groupClasses = '';
+				$this->groupClasses = '';*/
+
+
+			if($this->groupData['type'] == 'button')
+				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-default"';
+			elseif($this->groupData['type'] == 'radio' || $this->groupData['type'] == 'checkbox')
+				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : '';
+			else
+				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="form-control"';
 
 			// Create the group
 			$this->createGroup();
@@ -155,7 +167,7 @@ class Form
 	 */
 	private function createButton()
 	{
-		$this->formContent .= '';
+		$this->formContent .= '<button type="button" ' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>';
 	}
 
 	/**
@@ -205,7 +217,7 @@ class Form
 	 */
 	private function createTextArea()
 	{
-		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'></textarea>';
+		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'>' .$this->groupValue .'</textarea>';
 	}
 
 	/**
@@ -240,7 +252,7 @@ class Form
 	 */
 	private function createDefaultType()
 	{
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>';
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupValue .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>';
 	}
 
 	/**
