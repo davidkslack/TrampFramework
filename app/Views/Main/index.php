@@ -1,1 +1,1 @@
-<h1 class="page-header">Cool MVC</h1>
+<h1 class="page-header">Tramp Framework</h1>

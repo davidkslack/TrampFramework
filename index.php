@@ -1,6 +1,6 @@
 <?php
 /**
- * MVC Project
+ * Tramp Framework
  * Basic MVC to start an app project
  * Index page will start the Bootstrap and start the app only
  * This is the only entry point into the app
