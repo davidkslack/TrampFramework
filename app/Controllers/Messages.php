@@ -150,6 +150,14 @@ class Messages extends System\Controller
 				'created' => array(
 					'type'=>'date',
 					'label'=>'Created'
+				),
+				'button' => array(
+					'type'=>'button',
+					'label'=>'A button'
+				),
+				'file' => array(
+					'type'=>'file',
+					'label'=>'A file'
 				)
 			),
 		);

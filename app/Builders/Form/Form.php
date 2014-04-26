@@ -13,6 +13,7 @@ class Form
 	private $form ='';
 	private $formData = array();
 	private $formContent = '';
+	private $formEnctype = '';
 	private $groupPlaceHolder = '';
 	private $groupPlainID = '';
 	private $groupID = '';
@@ -40,6 +41,7 @@ class Form
 		$action  = (isset($formData['action'])) ? ' action="' .$formData['action'] .'"' : '';
 		$method = (isset($formData['method'])) ? ' method="' .$formData['method'] .'"' : '';
 		$formContent = $this->formContent();
+		$enctype = $this->formEnctype; // If we have a file type we need to change the encoding
 
 		// Create the form view
 		ob_start();
@@ -125,12 +127,35 @@ class Form
 			case 'textarea':
 				$this->createTextArea();
 				break;
+			case 'button':
+				$this->createButton();
+				break;
+			case 'file':
+				$this->formEnctype = ' enctype="multipart/form-data"';
+				$this->createFile();
+				break;
 			default:
 				$this->createDefaultType();
 				break;
 		}
 
 		$this->formContent .= '</div>';
+	}
+
+	/**
+	 * Create a file
+	 */
+	private function createFile()
+	{
+		$this->formContent .= '<input type="file"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>';
+	}
+
+	/**
+	 * Create a button
+	 */
+	private function createButton()
+	{
+		$this->formContent .= '';
 	}
 
 	/**
