@@ -1,0 +1,15 @@
+# Basic .htaccess page
+# Will make sure the end user will not need to see the query string or the index
+# @author: Dave Slack <me@davidslack.co.uk>
+Options -MultiViews
+
+# turn rewriting on
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+)$ index.php?route=$1 [QSA,L]
