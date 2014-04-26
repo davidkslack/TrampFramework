@@ -98,6 +98,7 @@ class Messages extends System\Controller
 					'type'=>'select',
 					'label'=>'Type',
 					'selected'=> 'warning',
+					'validation'=>'error',
 					'options'=>array(
 						'error'=> 	'Error',
 						'warning'=>	'Warning',
@@ -108,6 +109,18 @@ class Messages extends System\Controller
 					'type'=>'radio',
 					'label'=>'Type',
 					'selected'=> 'error',
+					'validation'=>'warning',
+					'options'=>array(
+						'error'=> 	'Error',
+						'warning'=>	'Warning',
+						'info'=> 	'Info'
+					)
+				),
+				'type3' => array(
+					'type'=>'checkbox',
+					'label'=>'Type',
+					'validation'=>'success',
+					'selected'=> array('error','info'),
 					'options'=>array(
 						'error'=> 	'Error',
 						'warning'=>	'Warning',

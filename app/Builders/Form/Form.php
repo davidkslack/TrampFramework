@@ -3,6 +3,7 @@
  * Form Builder
  * Add in an array and build a form.
  * @author: Dave Slack <me@davidslack.co.uk>
+ * TODO: Add multi select
  */
 namespace Builders\Form;
 class Form
@@ -18,6 +19,7 @@ class Form
 	private $groupData = array();
 	private $groupRows = 3;
 	private $groupSelected;
+	private $groupValidation = '';
 
 	/**
 	 * Create the form
@@ -56,11 +58,12 @@ class Form
 			$this->groupID = isset($this->groupData['id']) ? ' id="' .$this->groupData['id'] .'"' : 'id="' .$this->groupName .'"';
 			$this->groupRows = isset($this->groupData['rows']) ? $this->groupData['rows'] : 3;
 			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
+			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 
 			// Add the Bootstrap class if we don't add anything
 			if(isset($this->groupData['classes']))
 				$this->groupClasses = ' class="' .$this->groupData['classes'] .'"';
-			elseif($this->groupData['type'] != 'radio')
+			elseif($this->groupData['type'] != 'radio' && $this->groupData['type'] != 'checkbox')
 				$this->groupClasses = ' class="form-control"';
 			else
 				$this->groupClasses = '';
@@ -78,7 +81,11 @@ class Form
 	 */
 	private function createGroup()
 	{
-		$this->formContent .= '<div class="form-group">';
+		$validationClass = '';
+		if($this->groupValidation!='')
+			$validationClass = ' has-' .$this->groupValidation;
+
+		$this->formContent .= '<div class="form-group ' .$validationClass .'">';
 
 		if($this->groupData['label']!='')
 			$this->createLabel();
@@ -103,9 +110,11 @@ class Form
 			case 'radio':
 				$this->createRadio();
 				break;
+			case 'checkbox':
+				$this->createCheckbox();
+				break;
 			case 'textarea':
-				$rows = 3;
-				$this->createTextArea($rows);
+				$this->createTextArea();
 				break;
 			default:
 				$this->createDefaultType();
@@ -113,6 +122,23 @@ class Form
 		}
 
 		$this->formContent .= '</div>';
+	}
+
+	private function createCheckbox()
+	{
+		foreach($this->groupData['options'] as $value => $option)
+		{
+			// If we have a selected use it
+			$selected = '';
+			if(in_array($value, $this->groupSelected))
+				$selected = ' checked';
+
+			$this->formContent .= '
+			<label class="checkbox-inline">
+				<input type="checkbox" value="' .$value .'" ' .$this->groupClasses .$selected .'>' .$option .'
+			</label>
+			';
+		}
 	}
 
 	/**
@@ -130,7 +156,7 @@ class Form
 			$this->formContent .= '
 			<div class="radio">
 				<label>
-					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupID .$this->groupClasses .$selected .'>
+					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupClasses .$selected .'>
 					' .$option .'
 				</label>
 			</div>';
@@ -147,6 +173,7 @@ class Form
 
 	/**
 	 * Create a form select
+	 * TODO: Add in multi select
 	 */
 	private function createSelect()
 	{
