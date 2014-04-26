@@ -133,6 +133,9 @@ class Form
 		$this->formContent .= '</div>';
 	}
 
+	/**
+	 * Create checkbox
+	 */
 	private function createCheckbox()
 	{
 		foreach($this->groupData['options'] as $value => $option)
