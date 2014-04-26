@@ -3,9 +3,6 @@
  * Form Builder
  * Add in an array and build a form.
  * @author: Dave Slack <me@davidslack.co.uk>
- * TODO:
- * 		button
- * 		submit button
  */
 namespace Builders\Form;
 class Form
@@ -26,6 +23,7 @@ class Form
 	private $groupMultiple = '';
 	private $groupDisabled = '';
 	private $groupValue = '';
+	private $groupHelp = '';
 
 	/**
 	 * Create the form
@@ -68,17 +66,7 @@ class Form
 			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
 			$this->groupValue = isset($this->groupData['value']) ? $this->groupData['value'] : '';
-
-			// Add the Bootstrap class if we don't add anything
-			/*if(isset($this->groupData['classes']))
-				$this->groupClasses = ' class="' .$this->groupData['classes'] .'"';
-			elseif($this->groupData['type'] != 'radio' && $this->groupData['type'] != 'checkbox')
-				$this->groupClasses = ' class="form-control"';
-			elseif($this->groupData['type'] == 'button')
-				$this->groupClasses = ' class="btn btn-default"';
-			else
-				$this->groupClasses = '';*/
-
+			$this->groupHelp = isset($this->groupData['help']) ? '<span class="help-block">' .$this->groupData['help'] .'</span>' : '';
 
 			if($this->groupData['type'] == 'button')
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-default"';
@@ -164,7 +152,7 @@ class Form
 	 */
 	private function createSubmit()
 	{
-		$this->formContent .= '<button type="submit"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>';
+		$this->formContent .= '<button type="submit"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
 	}
 
 	/**
@@ -172,7 +160,7 @@ class Form
 	 */
 	private function createFile()
 	{
-		$this->formContent .= '<input type="file"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>';
+		$this->formContent .= '<input type="file"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupHelp;
 	}
 
 	/**
@@ -180,7 +168,7 @@ class Form
 	 */
 	private function createButton()
 	{
-		$this->formContent .= '<button type="button" ' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>';
+		$this->formContent .= '<button type="button" ' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
 	}
 
 	/**
@@ -201,6 +189,7 @@ class Form
 			</label>
 			';
 		}
+		$this->formContent .= $this->groupHelp;
 	}
 
 	/**
@@ -223,6 +212,7 @@ class Form
 				</label>
 			</div>';
 		}
+		$this->formContent .= '</select>' .$this->groupHelp;
 	}
 
 	/**
@@ -230,7 +220,7 @@ class Form
 	 */
 	private function createTextArea()
 	{
-		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'>' .$this->groupValue .'</textarea>';
+		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'>' .$this->groupValue .'</textarea>' .$this->groupHelp;
 	}
 
 	/**
@@ -257,7 +247,7 @@ class Form
 
 			$this->formContent .= '<option value="' .$value .'"' .$selected .'>' .$option .'</option>';
 		}
-		$this->formContent .= '</select>';
+		$this->formContent .= '</select>' .$this->groupHelp;
 	}
 
 	/**
@@ -265,7 +255,7 @@ class Form
 	 */
 	private function createDefaultType()
 	{
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupValue .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>';
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupValue .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
 	}
 
 	/**

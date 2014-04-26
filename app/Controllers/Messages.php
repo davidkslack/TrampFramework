@@ -98,6 +98,7 @@ class Messages extends System\Controller
 					'type'=>'select',
 					'label'=>'Type',
 					'selected'=> 'warning',
+					'help'=>'Some test help',
 					'validation'=>'error',
 					'options'=>array(
 						'error'=> 	'Error',
@@ -109,6 +110,7 @@ class Messages extends System\Controller
 					'type'=>'radio',
 					'label'=>'Type',
 					'selected'=> 'error',
+					'help'=>'Some test help',
 					'validation'=>'warning',
 					'options'=>array(
 						'error'=> 	'Error',
@@ -120,6 +122,7 @@ class Messages extends System\Controller
 					'type'=>'checkbox',
 					'label'=>'Type',
 					'validation'=>'success',
+					'help'=>'Some test help',
 					'selected'=> array('error','info'),
 					'options'=>array(
 						'error'=> 	'Error',
@@ -130,6 +133,7 @@ class Messages extends System\Controller
 				'type4' => array(
 					'type'=>'multiple',
 					'label'=>'Type',
+					'help'=>'Some test help',
 					'selected'=> 'warning',
 					'options'=>array(
 						'error'=> 	'Error',
@@ -142,28 +146,34 @@ class Messages extends System\Controller
 					'label'=>'Description',
 					'rows'=>6,
 					'disabled'=>true,
+					'help'=>'Some test help',
 					'value'=>'A nice default value'
 				),
 				'user_id' => array(
 					'type'=>'number',
+					'help'=>'Some test help',
 					'label'=>'User ID'
 				),
 				'created' => array(
 					'type'=>'date',
+					'help'=>'Some test help',
 					'label'=>'Created'
 				),
 				'a_button' => array(
 					'type'=>'button',
 					'label'=>'A button',
+					'help'=>'Some test help',
 					'value'=>'This is a button'
 				),
 				'file' => array(
 					'type'=>'file',
+					'help'=>'Some test help',
 					'label'=>'A file'
 				),
 				'submit' => array(
 					'type'=>'submit',
 					'label'=>'',
+					'help'=>'Some test help',
 					'value'=>'Save'
 				)
 			),
