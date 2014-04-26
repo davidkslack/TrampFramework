@@ -127,6 +127,16 @@ class Messages extends System\Controller
 						'info'=> 	'Info'
 					)
 				),
+				'type4' => array(
+					'type'=>'multiple',
+					'label'=>'Type',
+					'selected'=> 'warning',
+					'options'=>array(
+						'error'=> 	'Error',
+						'warning'=>	'Warning',
+						'info'=> 	'Info'
+					)
+				),
 				'description' => 	array('type'=>'textarea','label'=>'Description', 'rows'=>6),
 				'user_id' => 		array('type'=>'number','label'=>'User ID'),
 				'created' => 		array('type'=>'date','label'=>'Created')

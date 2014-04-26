@@ -3,7 +3,11 @@
  * Form Builder
  * Add in an array and build a form.
  * @author: Dave Slack <me@davidslack.co.uk>
- * TODO: Add multi select
+ * TODO:
+ * 		Add multi select
+ * 		disabled
+ * 		button
+ * 		submit button
  */
 namespace Builders\Form;
 class Form
@@ -18,8 +22,9 @@ class Form
 	private $groupName = '';
 	private $groupData = array();
 	private $groupRows = 3;
-	private $groupSelected;
+	private $groupSelected = '';
 	private $groupValidation = '';
+	private $groupMultiple = '';
 
 	/**
 	 * Create the form
@@ -107,6 +112,10 @@ class Form
 			case 'select':
 				$this->createSelect();
 				break;
+			case 'multiple':
+				$this->groupMultiple = 'multiple';
+				$this->createSelect();
+				break;
 			case 'radio':
 				$this->createRadio();
 				break;
@@ -173,11 +182,15 @@ class Form
 
 	/**
 	 * Create a form select
-	 * TODO: Add in multi select
 	 */
 	private function createSelect()
 	{
-		$this->formContent .= '<select name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .'>';
+		// If we have a multiple select use it
+		$multiple  = '';
+		if($this->groupMultiple)
+			$multiple = ' multiple';
+
+		$this->formContent .= '<select' .$multiple .'  name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .'>';
 		foreach($this->groupData['options'] as $value => $option)
 		{
 			// If we have no value use the option
