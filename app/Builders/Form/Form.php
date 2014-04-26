@@ -113,6 +113,9 @@ class Form
 		$this->formContent .= '</div>';
 	}
 
+	/**
+	 * Create radio buttons
+	 */
 	private function createRadio()
 	{
 		foreach($this->groupData['options'] as $value => $option)
@@ -125,11 +128,12 @@ class Form
 				</label>
 			</div>';
 		}
-
-
 	}
 
-	private function createTextArea($rows)
+	/**
+	 * Create Text area
+	 */
+	private function createTextArea()
 	{
 		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"></textarea>';
 	}
