@@ -17,6 +17,7 @@ class Form
 	private $groupName = '';
 	private $groupData = array();
 	private $groupRows = 3;
+	private $groupSelected;
 
 	/**
 	 * Create the form
@@ -54,6 +55,7 @@ class Form
 			$this->groupPlainID = isset($this->groupData['id']) ? $this->groupData['id'] : $this->groupName;
 			$this->groupID = isset($this->groupData['id']) ? ' id="' .$this->groupData['id'] .'"' : 'id="' .$this->groupName .'"';
 			$this->groupRows = isset($this->groupData['rows']) ? $this->groupData['rows'] : 3;
+			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
 
 			// Add the Bootstrap class if we don't add anything
 			if(isset($this->groupData['classes']))
@@ -120,10 +122,15 @@ class Form
 	{
 		foreach($this->groupData['options'] as $value => $option)
 		{
+			// If we have a selected use it
+			$selected = '';
+			if($this->groupSelected == $value)
+				$selected = ' checked';
+
 			$this->formContent .= '
 			<div class="radio">
 				<label>
-					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupID .$this->groupClasses .' checked>
+					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupID .$this->groupClasses .$selected .'>
 					' .$option .'
 				</label>
 			</div>';
@@ -146,9 +153,16 @@ class Form
 		$this->formContent .= '<select name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .'>';
 		foreach($this->groupData['options'] as $value => $option)
 		{
+			// If we have no value use the option
 			if($value == '')
 				$value = $option;
-			$this->formContent .= '<option value="' .$value .'">' .$option .'</option>';
+
+			// If we have a selected use it
+			$selected = '';
+			if($this->groupSelected == $value)
+				$selected = ' selected';
+
+			$this->formContent .= '<option value="' .$value .'"' .$selected .'>' .$option .'</option>';
 		}
 		$this->formContent .= '</select>';
 	}

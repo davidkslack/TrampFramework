@@ -94,18 +94,24 @@ class Messages extends System\Controller
 			'id' => 			'messagesForm',
 			'classes' => 		'form-horizontal',
 			'content' => array(
-				'type' => 			array('type'=>'select', 'label'=>'Type',
+				'type' => array(
+					'type'=>'select',
+					'label'=>'Type',
+					'selected'=> 'warning',
 					'options'=>array(
 						'error'=> 	'Error',
 						'warning'=>	'Warning',
-						'success'=> 'success'
+						'info'=> 	'Info'
 					)
 				),
-				'type2' => 			array('type'=>'radio', 'label'=>'Type',
+				'type2' => array(
+					'type'=>'radio',
+					'label'=>'Type',
+					'selected'=> 'error',
 					'options'=>array(
 						'error'=> 	'Error',
 						'warning'=>	'Warning',
-						'success'=> 'success'
+						'info'=> 	'Info'
 					)
 				),
 				'description' => 	array('type'=>'textarea','label'=>'Description', 'rows'=>6),
