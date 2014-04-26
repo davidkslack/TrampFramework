@@ -82,6 +82,8 @@ class Form
 
 			if($this->groupData['type'] == 'button')
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-default"';
+			elseif($this->groupData['type'] == 'submit')
+				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-primary"';
 			elseif($this->groupData['type'] == 'radio' || $this->groupData['type'] == 'checkbox')
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : '';
 			else
@@ -123,6 +125,9 @@ class Form
 
 		switch($this->groupData['type'])
 		{
+			case 'submit':
+				$this->createSubmit();
+				break;
 			case 'select':
 				$this->createSelect();
 				break;
@@ -152,6 +157,14 @@ class Form
 		}
 
 		$this->formContent .= '</div>';
+	}
+
+	/**
+	 * Create a submit button
+	 */
+	private function createSubmit()
+	{
+		$this->formContent .= '<button type="submit"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>';
 	}
 
 	/**

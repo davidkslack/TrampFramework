@@ -160,6 +160,11 @@ class Messages extends System\Controller
 				'file' => array(
 					'type'=>'file',
 					'label'=>'A file'
+				),
+				'submit' => array(
+					'type'=>'submit',
+					'label'=>'',
+					'value'=>'Save'
 				)
 			),
 		);
