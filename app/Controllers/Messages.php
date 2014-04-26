@@ -22,15 +22,15 @@ class Messages extends System\Controller
 		parent::__construct();
 
 		// Default view stuff
-		/*$this->data['title'] = 'Messages';
+		$this->data['title'] = 'Messages';
 		$this->data['content'] = "";
 		$this->description = 'Messages - Lists all the messages in the system';
-		$this->keywords = 'Messages';*/
+		$this->keywords = 'Messages';
 	}
 
 	/**
 	 * The main function for the messages
-	 *
+	 */
 	public function index()
 	{
 		// Get an array of messages back
@@ -56,7 +56,7 @@ class Messages extends System\Controller
 	/**
 	 * Delete message function
 	 * @param $params array 	Parameters passed in using the URL
-	 *
+	 */
 	public function delete($params)
 	{
 		// The params should be an array and the first param should be the view ID
@@ -83,7 +83,7 @@ class Messages extends System\Controller
 
 		// Redirect back to the messages page
 		$this->redirect('/admin/messages/');
-	}*/
+	}
 
 	public function add()
 	{

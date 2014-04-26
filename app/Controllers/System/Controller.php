@@ -11,7 +11,7 @@ use Builders\Messages;
 class Controller extends Template
 {
 	private $viewFile;
-	private $view;
+	private $view = '';
 	public $data = array();
 	public $viewMessages = '';
 	public $DBConnection;
@@ -22,7 +22,7 @@ class Controller extends Template
 	 */
 	public function createView()
 	{
-		if($this->view != '')
+		if($this->viewFile != NULL)
 		{
 			$className = explode( '\\', get_class($this) );
 			$className = end( $className );
@@ -38,10 +38,7 @@ class Controller extends Template
 	public function show( $view=NULL, $content=NULL )
 	{
 		// Get the correct view to use with the template
-		if( $view==NULL )
-			$this->viewFile = 'index';
-		else
-			$this->viewFile = $view;
+		$this->viewFile = $view;
 
 		// Create messages
 		$messageBuilder = new Messages();
@@ -70,7 +67,7 @@ class Controller extends Template
 		$this->description = 'Messages - Lists all the messages in the system';
 		$this->keywords = 'Messages';
 
-		$this->show( 'default', $this->data );
+		$this->show( NULL, $this->data );
 	}
 
 	/**
