@@ -137,9 +137,20 @@ class Messages extends System\Controller
 						'info'=> 	'Info'
 					)
 				),
-				'description' => 	array('type'=>'textarea','label'=>'Description', 'rows'=>6),
-				'user_id' => 		array('type'=>'number','label'=>'User ID'),
-				'created' => 		array('type'=>'date','label'=>'Created')
+				'description' => array(
+					'type'=>'textarea',
+					'label'=>'Description',
+					'rows'=>6,
+					'disabled'=>true
+				),
+				'user_id' => array(
+					'type'=>'number',
+					'label'=>'User ID'
+				),
+				'created' => array(
+					'type'=>'date',
+					'label'=>'Created'
+				)
 			),
 		);
 

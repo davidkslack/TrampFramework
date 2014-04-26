@@ -4,8 +4,6 @@
  * Add in an array and build a form.
  * @author: Dave Slack <me@davidslack.co.uk>
  * TODO:
- * 		Add multi select
- * 		disabled
  * 		button
  * 		submit button
  */
@@ -25,6 +23,7 @@ class Form
 	private $groupSelected = '';
 	private $groupValidation = '';
 	private $groupMultiple = '';
+	private $groupDisabled = '';
 
 	/**
 	 * Create the form
@@ -64,6 +63,7 @@ class Form
 			$this->groupRows = isset($this->groupData['rows']) ? $this->groupData['rows'] : 3;
 			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
 			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
+			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
 
 			// Add the Bootstrap class if we don't add anything
 			if(isset($this->groupData['classes']))
@@ -147,7 +147,7 @@ class Form
 
 			$this->formContent .= '
 			<label class="checkbox-inline">
-				<input type="checkbox" value="' .$value .'" ' .$this->groupClasses .$selected .'>' .$option .'
+				<input type="checkbox" value="' .$value .'" ' .$this->groupClasses .$selected .$this->groupDisabled .'>' .$option .'
 			</label>
 			';
 		}
@@ -168,7 +168,7 @@ class Form
 			$this->formContent .= '
 			<div class="radio">
 				<label>
-					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupClasses .$selected .'>
+					<input type="radio" name="' .$this->groupName .'" value="' .$value .'" ' .$this->groupClasses .$selected .$this->groupDisabled .'>
 					' .$option .'
 				</label>
 			</div>';
@@ -180,7 +180,7 @@ class Form
 	 */
 	private function createTextArea()
 	{
-		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"></textarea>';
+		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'></textarea>';
 	}
 
 	/**
@@ -193,7 +193,7 @@ class Form
 		if($this->groupMultiple)
 			$multiple = ' multiple';
 
-		$this->formContent .= '<select' .$multiple .'  name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .'>';
+		$this->formContent .= '<select' .$multiple .'  name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupDisabled .'>';
 		foreach($this->groupData['options'] as $value => $option)
 		{
 			// If we have no value use the option
@@ -215,7 +215,7 @@ class Form
 	 */
 	private function createDefaultType()
 	{
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .'>';
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>';
 	}
 
 	/**
