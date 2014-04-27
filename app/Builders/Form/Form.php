@@ -20,12 +20,13 @@
  * 							text 		select 		submit
  * 							multiple 	number 		email
  * 							button 		radio 		checkbox
- * 							textarea	file
+ * 							textarea	file 		date
  * 			label 		Shown on the left of the input to name it. The user can click to select the input (default is empty)
  * 			selected 	If there are options the one selected
  * 			help 		Help text about this group
  *			validation 	error, warning or success will change the style of the group for error handling
  * 			options 	On a select, radio or tickbox the options array are all the options to show
+ * 			value 		On input boxes the default value
  *
  * 			NB. If we have a group with a type file then enctype="multipart/form-data" is added
  *
@@ -286,7 +287,7 @@ class Form
 	 */
 	private function createDefaultType()
 	{
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'"' .$this->groupValue .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'" value="' .$this->groupValue .'" ' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
 	}
 
 	/**

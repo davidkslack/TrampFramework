@@ -94,86 +94,42 @@ class Messages extends System\Controller
 			'id' => 			'messagesForm',
 			'classes' => 		'form-horizontal',
 			'content' => array(
-				'type' => array(
-					'type'=>'select',
-					'label'=>'Type',
-					'selected'=> 'warning',
-					'help'=>'Some test help',
-					'validation'=>'error',
-					'options'=>array(
-						'error'=> 	'Error',
-						'warning'=>	'Warning',
-						'info'=> 	'Info'
-					)
-				),
-				'type2' => array(
-					'type'=>'radio',
-					'label'=>'Type',
-					'selected'=> 'error',
-					'help'=>'Some test help',
-					'validation'=>'warning',
-					'options'=>array(
-						'error'=> 	'Error',
-						'warning'=>	'Warning',
-						'info'=> 	'Info'
-					)
-				),
-				'type3' => array(
-					'type'=>'checkbox',
-					'label'=>'Type',
-					'validation'=>'success',
-					'help'=>'Some test help',
-					'selected'=> array('error','info'),
-					'options'=>array(
-						'error'=> 	'Error',
-						'warning'=>	'Warning',
-						'info'=> 	'Info'
-					)
-				),
-				'type4' => array(
-					'type'=>'multiple',
-					'label'=>'Type',
-					'help'=>'Some test help',
-					'selected'=> 'warning',
-					'options'=>array(
-						'error'=> 	'Error',
-						'warning'=>	'Warning',
-						'info'=> 	'Info'
-					)
-				),
 				'description' => array(
 					'type'=>'textarea',
 					'label'=>'Description',
 					'rows'=>6,
-					'disabled'=>true,
-					'help'=>'Some test help',
-					'value'=>'A nice default value'
+					'help'=>'What is the message all about',
+					'placeholder'=>'What is the message all about'
+				),
+				'type' => array(
+					'type'=>'select',
+					'label'=>'Type',
+					'selected'=> 'error',
+					'help'=>'Choose the type of message this will be',
+					'options'=>array(
+						'hardware'=> 	'Hardware Issue',
+						'error'=> 		'Error',
+						'warning'=>		'Warning',
+						'info'=> 		'Info'
+					)
 				),
 				'user_id' => array(
 					'type'=>'number',
-					'help'=>'Some test help',
-					'label'=>'User ID'
+					'help'=>'Admin user ID the message was created by',
+					'label'=>'User ID',
+					'disabled'=>true,
+					'value'=>1
 				),
 				'created' => array(
 					'type'=>'date',
-					'help'=>'Some test help',
-					'label'=>'Created'
-				),
-				'a_button' => array(
-					'type'=>'button',
-					'label'=>'A button',
-					'help'=>'Some test help',
-					'value'=>'This is a button'
-				),
-				'file' => array(
-					'type'=>'file',
-					'help'=>'Some test help',
-					'label'=>'A file'
+					'help'=>'Date the message was created',
+					'label'=>'Created',
+					'disabled'=>true,
+					'value'=>date('Y-m-d h:i:s')
 				),
 				'submit' => array(
 					'type'=>'submit',
 					'label'=>'',
-					'help'=>'Some test help',
 					'value'=>'Save'
 				)
 			),
