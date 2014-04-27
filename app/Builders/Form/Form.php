@@ -16,7 +16,11 @@
  *  		content 	An array containing each of the groups in the form (see below)
  *
  * 			The content array will hold an array of all the content the form can have in groups
- * 			type 		The type of from content this group will hold eg text, email, etc. (default to text)
+ * 			type 		The type of from content this group will hold (default to text)
+ * 							text 		select 		submit
+ * 							multiple 	number 		email
+ * 							button 		radio 		checkbox
+ * 							textarea	file
  * 			label 		Shown on the left of the input to name it. The user can click to select the input (default is empty)
  * 			selected 	If there are options the one selected
  * 			help 		Help text about this group
