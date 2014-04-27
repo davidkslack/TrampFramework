@@ -3,6 +3,28 @@
  * Form Builder
  * Add in an array and build a form.
  * @author: Dave Slack <me@davidslack.co.uk>
+ * Usage:
+ *  	Create a new object of \Builders\Form\Form and add an array to the createForm method like below
+ * 			$form = new Form();
+ * 			$form->createForm( $formData );
+ *
+ * 		The array can contain:
+ * 			id 			The CSS id of the form
+ *  		classes 	CSV of the classes of the form (default to form-horizontal)
+ * 			action 		The uri the form will post to (default to self)
+ * 			method 		The method (POST or GET) the action will use (default to POST)
+ *  		content 	An array containing each of the groups in the form (see below)
+ *
+ * 			The content array will hold an array of all the content the form can have in groups
+ * 			type 		The type of from content this group will hold eg text, email, etc. (default to text)
+ * 			label 		Shown on the left of the input to name it. The user can click to select the input (default is empty)
+ * 			selected 	If there are options the one selected
+ * 			help 		Help text about this group
+ *			validation 	error, warning or success will change the style of the group for error handling
+ * 			options 	On a select, radio or tickbox the options array are all the options to show
+ *
+ * 			NB. If we have a group with a type file then enctype="multipart/form-data" is added
+ *
  */
 namespace Builders\Form;
 class Form
@@ -38,7 +60,7 @@ class Form
 		$id = (isset($formData['id'])) ? ' id="' .$formData['id'] .'"' : '';
 		$classes = (isset($formData['classes'])) ? ' class="' .$formData['classes'] .'"' : ' class="form-horizontal"';
 		$action  = (isset($formData['action'])) ? ' action="' .$formData['action'] .'"' : '';
-		$method = (isset($formData['method'])) ? ' method="' .$formData['method'] .'"' : '';
+		$method = (isset($formData['method'])) ? ' method="' .$formData['method'] .'"' : ' method="POST"';
 		$formContent = $this->formContent();
 		$enctype = $this->formEnctype; // If we have a file type we need to change the encoding
 
@@ -109,7 +131,11 @@ class Form
 	 */
 	private function createInput()
 	{
+		// Start this group
 		$this->formContent .= '<div class="col-sm-10">';
+
+		// If there is not type set we set one
+		$this->groupData['type'] = isset($this->groupData['type']) ? $this->groupData['type'] : 'text';
 
 		switch($this->groupData['type'])
 		{
@@ -144,6 +170,7 @@ class Form
 				break;
 		}
 
+		// End this group
 		$this->formContent .= '</div>';
 	}
 
