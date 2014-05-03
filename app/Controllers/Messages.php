@@ -165,17 +165,18 @@ class Messages extends System\Controller
 			),
 		);
 
-		// Add validation error
-		/*$formData['content']['description']['validation'] = array(
-			'type'=>'error',
-			'message'=>'This field is required'
-		);*/
-
 		// Create the form from the data
 		$form = new Form( $formData );
 
-		// Add our new table to the content
+		// Add our new form to the content
 		$this->data['content'] = (string)$form;
+
+		// Check the form is valid and if so save it
+		if($form->valid == true)
+		{
+			// Save the form
+			new \Builders\Messages(array('success', 'Form was saved.'));
+		}
 
 		// Call the view with the the data to add in
 		$this->show( 'add', $this->data );

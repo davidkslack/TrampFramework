@@ -38,7 +38,7 @@
 namespace Builders\Form;
 class Form
 {
-	public $valid = false;
+	public $valid = NULL;
 	public $receivedData = array();
 
 	private $form ='';
@@ -75,11 +75,19 @@ class Form
 	{
 		if($this->method == 'GET' || $this->method == 'get')
 		{
+			// We have data so assume valid until we test
+			$this->valid = true;
+
 			if(!empty($_GET))
 				$this->receivedData = $_GET;
 		}
 		elseif(!empty($_POST))
+		{
+			// We have data so assume valid until we test
+			$this->valid = true;
+
 			$this->receivedData = $_POST;
+		}
 	}
 
 	/**
@@ -188,6 +196,7 @@ class Form
 				$this->valid = false;
 			}
 		}
+		// No number
 		elseif(strlen($this->receivedData[$this->groupName]) < $value)
 		{
 			$this->groupValidation['type']='error';
@@ -199,9 +208,24 @@ class Form
 	/**
 	 * Error if the value is more than the max rule
 	 */
-	private function validateMax()
+	private function validateMax($value)
 	{
-
+		// We have a number
+		if(is_numeric($this->receivedData[$this->groupName]))
+		{
+			if($this->receivedData[$this->groupName] > $value)
+			{
+				$this->groupValidation['type']='error';
+				$this->groupValidation['message'] = 'This value is too high';
+				$this->valid = false;
+			}
+		}
+		elseif(strlen($this->receivedData[$this->groupName]) > $value)
+		{
+			$this->groupValidation['type']='error';
+			$this->groupValidation['message'] = 'This value needs less characters';
+			$this->valid = false;
+		}
 	}
 
 	/**
@@ -212,7 +236,7 @@ class Form
 		// Go through the rules
 		foreach($this->groupData['rules'] as $rule => $value)
 		{
-			//
+			// Make sure we tet the correct rules
 			switch($rule)
 			{
 				case 'required':
