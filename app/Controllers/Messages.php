@@ -135,6 +135,12 @@ class Messages extends System\Controller
 			),
 		);
 
+		// Add validation error
+		/*$formData['content']['description']['validation'] = array(
+			'type'=>'error',
+			'message'=>'This field is required'
+		);*/
+
 		// Create the form from the data
 		$form = new Form();
 		$form->createForm( $formData );

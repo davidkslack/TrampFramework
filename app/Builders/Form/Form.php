@@ -24,9 +24,10 @@
  * 			label 		Shown on the left of the input to name it. The user can click to select the input (default is empty)
  * 			selected 	If there are options the one selected
  * 			help 		Help text about this group
- *			validation 	error, warning or success will change the style of the group for error handling
  * 			options 	On a select, radio or tickbox the options array are all the options to show
  * 			value 		On input boxes the default value
+ *			validation 	An array holding the 'type' error, warning or success and 'message'
+ * 				'type' will change the style of the group and message will show with the help
  *
  * 			NB. If we have a group with a type file then enctype="multipart/form-data" is added
  *
@@ -104,6 +105,11 @@ class Form
 			else
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="form-control"';
 
+			// Validation
+			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
+			if(is_array($this->groupValidation) && $this->groupValidation['message']!='')
+				$this->groupHelp .= '<span class="help-block">' .$this->groupValidation['message'] .'</span>';
+
 			// Create the group
 			$this->createGroup();
 		}
@@ -117,9 +123,10 @@ class Form
 	 */
 	private function createGroup()
 	{
+		// Validation
 		$validationClass = '';
-		if($this->groupValidation!='')
-			$validationClass = ' has-' .$this->groupValidation;
+		if(is_array($this->groupValidation) && $this->groupValidation['type']!='')
+			$validationClass = ' has-' .$this->groupValidation['type'];
 
 		$this->formContent .= '<div class="form-group ' .$validationClass .'">';
 
