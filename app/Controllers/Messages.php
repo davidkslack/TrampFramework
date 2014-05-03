@@ -131,11 +131,12 @@ class Messages extends System\Controller
 					),
 				),
 				'created' => array(
-					'type'=>'date',
+					'type'=>'datetime',
 					'help'=>'Date the message was created',
 					'label'=>'Created',
-					'disabled'=>true,
-					//'value'=>date('Y-m-d h:i:s')
+					'classes'=>'datetime form-control',
+					//'disabled'=>true,
+					'value'=>date('d/m/Y H:i')
 				),
 				/*'test_radio' => array(
 					'type'=>'radio',

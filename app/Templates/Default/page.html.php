@@ -11,17 +11,20 @@
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="/app/Templates/Default/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/app/Templates/Default/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/app/Templates/Default/css/bootstrap-datetimepicker.css">
 	<link rel="stylesheet" href="/app/Templates/Default/css/style.css">
+
+	<script src="/app/Templates/Default/js/jquery-1.11.0.min.js"></script>
+	<script src="/app/Templates/Default/js/moment.js"></script>
+	<script src="/app/Templates/Default/js/bootstrap.min.js"></script>
+	<script src="/app/Templates/Default/js/bootstrap-datetimepicker.js"></script>
+	<script src="/app/Templates/Default/js/script.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
-	<script src="/app/Templates/Default/js/jquery-1.11.0.min.js"></script>
-	<script src="/app/Templates/Default/js/bootstrap.min.js"></script>
-	<script src="/app/Templates/Default/js/script.js"></script>
 </head>
 
 <body>
