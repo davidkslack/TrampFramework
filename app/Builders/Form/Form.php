@@ -280,8 +280,8 @@ class Form
 	private function createCheckbox()
 	{
 		// Get the selected value from the received data
-		//if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
-			//$this->groupSelected = $this->receivedData[$this->groupName];
+		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			$this->groupSelected = $this->receivedData[$this->groupName];
 
 		foreach($this->groupData['options'] as $value => $option)
 		{
@@ -292,7 +292,7 @@ class Form
 
 			$this->formContent .= '
 			<label class="checkbox-inline">
-				<input type="checkbox" value="' .$value .'" ' .$this->groupClasses .$selected .$this->groupDisabled .'>' .$option .'
+				<input type="checkbox" name="' .$this->groupName .'[]" value="' .$value .'" ' .$this->groupClasses .$selected .$this->groupDisabled .'>' .$option .'
 			</label>
 			';
 		}
