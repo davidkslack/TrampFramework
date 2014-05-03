@@ -12,7 +12,6 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 	<style>
-		.row .sidebar{z-index: -1}
 		/*
  * Base structure
  */
