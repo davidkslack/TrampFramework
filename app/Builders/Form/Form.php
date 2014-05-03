@@ -100,6 +100,7 @@ class Form
 			$this->groupHelp = isset($this->groupData['help']) ? '<span class="help-block">' .$this->groupData['help'] .'</span>' : '';
 			if(isset($this->groupData['rules'])) $this->createRules($this->groupData['rules']);
 
+			// Depending on the type we need to add classes
 			if($this->groupData['type'] == 'button')
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-default"';
 			elseif($this->groupData['type'] == 'submit')
