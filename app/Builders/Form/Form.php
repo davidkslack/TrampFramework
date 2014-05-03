@@ -5,8 +5,9 @@
  * @author: Dave Slack <me@davidslack.co.uk>
  * Usage:
  *  	Create a new object of \Builders\Form\Form and add an array to the createForm method like below
- * 			$form = new Form();
- * 			$form->createForm( $formData );
+ * 			$form = new Form( $formData );
+ *
+ * 		The key of the array is the name of the input so cannot contain spaces
  *
  * 		The array can contain:
  * 			id 			The CSS id of the form
@@ -38,6 +39,7 @@ namespace Builders\Form;
 class Form
 {
 	private $form ='';
+	private $method = 'POST';
 	private $formData = array();
 	private $formContent = '';
 	private $formEnctype = '';
@@ -55,11 +57,36 @@ class Form
 	private $groupValue = '';
 	private $groupHelp = '';
 	private $groupRules = '';
+	private $receivedData = array();
 
 	function __construct($formData = NULL)
 	{
+		// Create the form
 		if($formData != NULL)
 			$this->createForm($formData);
+	}
+
+	/**
+	 * Validate the form
+	 */
+	private function validate()
+	{
+		//var_dump($this->receivedData);
+		//exit;
+	}
+
+	/**
+	 * Get the data from the correct method and forget the wrong method
+	 */
+	private function getReceivedData()
+	{
+		if($this->method == 'GET' || $this->method == 'get')
+		{
+			if(!empty($_GET))
+				$this->receivedData = $_GET;
+		}
+		elseif(!empty($_POST))
+			$this->receivedData = $_POST;
 	}
 
 	/**
@@ -68,6 +95,16 @@ class Form
 	 */
 	public function createForm( $formData = array() )
 	{
+		// Get the data
+		$this->getReceivedData();
+
+		// If we have data back from the form
+		if(!empty($this->receivedData))
+		{
+			// Validate the form
+			$this->validate();
+		}
+
 		// Add the data to the object
 		$this->formData = $formData['content'];
 
@@ -78,6 +115,8 @@ class Form
 		$method = (isset($formData['method'])) ? ' method="' .$formData['method'] .'"' : ' method="POST"';
 		$formContent = $this->formContent();
 		$enctype = $this->formEnctype; // If we have a file type we need to change the encoding
+
+		$this->method = $method;
 
 		// Create the form view
 		ob_start();
@@ -102,9 +141,11 @@ class Form
 			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
 			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
-			$this->groupValue = isset($this->groupData['value']) ? $this->groupData['value'] : '';
 			$this->groupHelp = isset($this->groupData['help']) ? '<span class="help-block">' .$this->groupData['help'] .'</span>' : '';
 			if(isset($this->groupData['rules'])) $this->createRules($this->groupData['rules']);
+
+			// Fill the value if we have one
+			$this->groupValue = isset($this->groupData['value']) ? $this->groupData['value'] : '';
 
 			// Depending on the type we need to add classes
 			if($this->groupData['type'] == 'button')
@@ -141,7 +182,7 @@ class Form
 
 		$this->formContent .= '<div class="form-group ' .$validationClass .'">';
 
-		if($this->groupData['label']!='')
+		if(isset($this->groupData['label']) && $this->groupData['label']!='')
 			$this->createLabel();
 
 		$this->createInput();
@@ -197,6 +238,10 @@ class Form
 		$this->formContent .= '</div>';
 	}
 
+	/**
+	 * Create the rules string from the array
+	 * @param $rules
+	 */
 	private function createRules($rules)
 	{
 		foreach($rules as $rule => $value)
@@ -234,11 +279,15 @@ class Form
 	 */
 	private function createCheckbox()
 	{
+		// Get the selected value from the received data
+		//if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			//$this->groupSelected = $this->receivedData[$this->groupName];
+
 		foreach($this->groupData['options'] as $value => $option)
 		{
 			// If we have a selected use it
 			$selected = '';
-			if(in_array($value, $this->groupSelected))
+			if(isset($this->groupSelected) && in_array($value, $this->groupSelected))
 				$selected = ' checked';
 
 			$this->formContent .= '
@@ -255,6 +304,10 @@ class Form
 	 */
 	private function createRadio()
 	{
+		// Get the selected value from the received data
+		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			$this->groupSelected = $this->receivedData[$this->groupName];
+
 		foreach($this->groupData['options'] as $value => $option)
 		{
 			// If we have a selected use it
@@ -262,6 +315,7 @@ class Form
 			if($this->groupSelected == $value)
 				$selected = ' checked';
 
+			// Create the radio btn
 			$this->formContent .= '
 			<div class="radio">
 				<label>
@@ -278,6 +332,9 @@ class Form
 	 */
 	private function createTextArea()
 	{
+		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			$this->groupValue = $this->receivedData[$this->groupName];
+
 		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupRules .$this->groupDisabled .'>' .$this->groupValue .'</textarea>' .$this->groupHelp;
 	}
 
@@ -290,6 +347,9 @@ class Form
 		$multiple  = '';
 		if($this->groupMultiple)
 			$multiple = ' multiple';
+
+		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			$this->groupSelected = $this->receivedData[$this->groupName];
 
 		$this->formContent .= '<select' .$multiple .'  name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupDisabled .'>';
 		foreach($this->groupData['options'] as $value => $option)
@@ -313,7 +373,11 @@ class Form
 	 */
 	private function createDefaultType()
 	{
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'" value="' .$this->groupValue .'" ' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
+		// If we have a value then use it
+		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
+			$this->groupValue = $this->receivedData[$this->groupName];
+
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'" name="' .$this->groupName .'" value="' .$this->groupValue .'" ' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
 	}
 
 	/**

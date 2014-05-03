@@ -122,15 +122,35 @@ class Messages extends System\Controller
 					'type'=>'number',
 					'help'=>'Admin user ID the message was created by',
 					'label'=>'User ID',
-					'disabled'=>true,
+					//'disabled'=>true,
 					'value'=>1
 				),
 				'created' => array(
 					'type'=>'date',
 					'help'=>'Date the message was created',
 					'label'=>'Created',
-					'disabled'=>true,
-					'value'=>date('Y-m-d h:i:s')
+					//'disabled'=>true,
+					//'value'=>date('Y-m-d h:i:s')
+				),
+				'test_radio' => array(
+					'type'=>'radio',
+					'label'=>'test radio',
+					'options'=>array(
+						'1'=>'b1',
+						'2'=>'b2',
+						'3'=>'b3',
+						'4'=>'b4'
+					)
+				),
+				'test_tick' => array(
+					'type'=>'checkbox',
+					'label'=>'test checkbox',
+					'options'=>array(
+						'1'=>'b1',
+						'2'=>'b2',
+						'3'=>'b3',
+						'4'=>'b4'
+					)
 				),
 				'submit' => array(
 					'type'=>'submit',
