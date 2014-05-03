@@ -122,17 +122,17 @@ class Messages extends System\Controller
 					'type'=>'number',
 					'help'=>'Admin user ID the message was created by',
 					'label'=>'User ID',
-					//'disabled'=>true,
+					'disabled'=>true,
 					'value'=>1
 				),
 				'created' => array(
 					'type'=>'date',
 					'help'=>'Date the message was created',
 					'label'=>'Created',
-					//'disabled'=>true,
+					'disabled'=>true,
 					//'value'=>date('Y-m-d h:i:s')
 				),
-				'test_radio' => array(
+				/*'test_radio' => array(
 					'type'=>'radio',
 					'label'=>'test radio',
 					'options'=>array(
@@ -151,7 +151,7 @@ class Messages extends System\Controller
 						'3'=>'b3',
 						'4'=>'b4'
 					)
-				),
+				),*/
 				'submit' => array(
 					'type'=>'submit',
 					'label'=>'',
