@@ -38,6 +38,9 @@
 namespace Builders\Form;
 class Form
 {
+	public $valid = false;
+	public $receivedData = array();
+
 	private $form ='';
 	private $method = 'POST';
 	private $formData = array();
@@ -57,22 +60,12 @@ class Form
 	private $groupValue = '';
 	private $groupHelp = '';
 	private $groupRules = '';
-	private $receivedData = array();
 
 	function __construct($formData = NULL)
 	{
 		// Create the form
 		if($formData != NULL)
 			$this->createForm($formData);
-	}
-
-	/**
-	 * Validate the form
-	 */
-	private function validate()
-	{
-		//var_dump($this->receivedData);
-		//exit;
 	}
 
 	/**
@@ -97,13 +90,6 @@ class Form
 	{
 		// Get the data
 		$this->getReceivedData();
-
-		// If we have data back from the form
-		if(!empty($this->receivedData))
-		{
-			// Validate the form
-			$this->validate();
-		}
 
 		// Add the data to the object
 		$this->formData = $formData['content'];
@@ -158,7 +144,11 @@ class Form
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="form-control"';
 
 			// Validation
-			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
+			// If we have data back from the form validate it
+			if(!empty($this->receivedData) && isset($this->groupData['rules']))
+				$this->validate();
+
+			//$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 			if(is_array($this->groupValidation) && $this->groupValidation['message']!='')
 				$this->groupHelp .= '<span class="help-block">' .$this->groupValidation['message'] .'</span>';
 
@@ -168,6 +158,59 @@ class Form
 
 		// Return the content as a string
 		return $this->formContent;
+	}
+
+	/**
+	 * Error if the required rule is added and there is no value
+	 */
+	private function validateRequired()
+	{
+		if($this->receivedData[$this->groupName] == '')
+		{
+			$this->groupValidation['type']='error';
+			$this->groupValidation['message'] = 'This field is required';
+			$this->valid = false;
+		}
+	}
+
+	/**
+	 * Error if the value is less than the min rule
+	 */
+	private function validateMin()
+	{
+
+	}
+
+	/**
+	 * Error if the value is more than the max rule
+	 */
+	private function validateMax()
+	{
+
+	}
+
+	/**
+	 * Validate the form
+	 */
+	private function validate()
+	{
+		// Go through the rules
+		foreach($this->groupData['rules'] as $rule => $value)
+		{
+			//
+			switch($rule)
+			{
+				case 'required':
+					$this->validateRequired();
+					break;
+				case 'min':
+					$this->validateMin();
+					break;
+				case 'max':
+					$this->validateMax();
+					break;
+			}
+		}
 	}
 
 	/**
