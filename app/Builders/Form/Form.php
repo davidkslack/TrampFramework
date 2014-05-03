@@ -28,6 +28,8 @@
  * 			value 		On input boxes the default value
  *			validation 	An array holding the 'type' error, warning or success and 'message'
  * 				'type' will change the style of the group and message will show with the help
+ * 			rules 		An array holding any rules for the form including required, min, max, pattern or any other html5
+ *  			or jQuery validation rules
  *
  * 			NB. If we have a group with a type file then enctype="multipart/form-data" is added
  *
