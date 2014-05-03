@@ -147,8 +147,7 @@ class Messages extends System\Controller
 		);*/
 
 		// Create the form from the data
-		$form = new Form();
-		$form->createForm( $formData );
+		$form = new Form( $formData );
 
 		// Add our new table to the content
 		$this->data['content'] = (string)$form;

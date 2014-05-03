@@ -56,6 +56,12 @@ class Form
 	private $groupHelp = '';
 	private $groupRules = '';
 
+	function __construct($formData = NULL)
+	{
+		if($formData != NULL)
+			$this->createForm($formData);
+	}
+
 	/**
 	 * Create the form
 	 * @param array $formData
