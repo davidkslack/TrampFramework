@@ -255,7 +255,7 @@ class Form
 	 */
 	private function createSubmit()
 	{
-		$this->formContent .= '<button type="submit"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
+		$this->formContent .= '<button name="' .$this->groupName .'" type="submit"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
 	}
 
 	/**
@@ -263,7 +263,7 @@ class Form
 	 */
 	private function createFile()
 	{
-		$this->formContent .= '<input type="file"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupHelp;
+		$this->formContent .= '<input name="' .$this->groupName .'" type="file"' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupHelp;
 	}
 
 	/**
@@ -271,7 +271,7 @@ class Form
 	 */
 	private function createButton()
 	{
-		$this->formContent .= '<button type="button" ' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
+		$this->formContent .= '<button name="' .$this->groupName .'" type="button" ' .$this->groupClasses .$this->groupID .$this->groupDisabled .'>' .$this->groupValue .'</button>' .$this->groupHelp;
 	}
 
 	/**
