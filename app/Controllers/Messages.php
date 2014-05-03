@@ -99,7 +99,12 @@ class Messages extends System\Controller
 					'label'=>'Description',
 					'rows'=>6,
 					'help'=>'What is the message all about',
-					'placeholder'=>'What is the message all about'
+					'placeholder'=>'What is the message all about',
+					'rules'=>array(
+						'required'=>'required',
+						'min'=>3,
+						'max'=>15
+					),
 				),
 				'type' => array(
 					'type'=>'select',

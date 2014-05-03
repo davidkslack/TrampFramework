@@ -52,6 +52,7 @@ class Form
 	private $groupDisabled = '';
 	private $groupValue = '';
 	private $groupHelp = '';
+	private $groupRules = '';
 
 	/**
 	 * Create the form
@@ -95,6 +96,7 @@ class Form
 			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
 			$this->groupValue = isset($this->groupData['value']) ? $this->groupData['value'] : '';
 			$this->groupHelp = isset($this->groupData['help']) ? '<span class="help-block">' .$this->groupData['help'] .'</span>' : '';
+			if(isset($this->groupData['rules'])) $this->createRules($this->groupData['rules']);
 
 			if($this->groupData['type'] == 'button')
 				$this->groupClasses = isset($this->groupData['classes']) ? ' class="' .$this->groupData['classes'] .'"' : ' class="btn btn-default"';
@@ -186,6 +188,14 @@ class Form
 		$this->formContent .= '</div>';
 	}
 
+	private function createRules($rules)
+	{
+		foreach($rules as $rule => $value)
+		{
+			$this->groupRules .=' ' .$rule .'="' .$value .'"';
+		}
+	}
+
 	/**
 	 * Create a submit button
 	 */
@@ -259,7 +269,7 @@ class Form
 	 */
 	private function createTextArea()
 	{
-		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupDisabled .'>' .$this->groupValue .'</textarea>' .$this->groupHelp;
+		$this->formContent .= '<textarea name="' .$this->groupName .'"' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .' rows="' .$this->groupRows .'"' .$this->groupRules .$this->groupDisabled .'>' .$this->groupValue .'</textarea>' .$this->groupHelp;
 	}
 
 	/**
