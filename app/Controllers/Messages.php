@@ -122,8 +122,13 @@ class Messages extends System\Controller
 					'type'=>'number',
 					'help'=>'Admin user ID the message was created by',
 					'label'=>'User ID',
-					'disabled'=>true,
-					'value'=>1
+					//'disabled'=>true,
+					'value'=>1,
+					'rules'=>array(
+						'required'=>'required',
+						'min'=>3,
+						'max'=>15
+					),
 				),
 				'created' => array(
 					'type'=>'date',

@@ -176,9 +176,24 @@ class Form
 	/**
 	 * Error if the value is less than the min rule
 	 */
-	private function validateMin()
+	private function validateMin($value)
 	{
-
+		// We have a number
+		if(is_numeric($this->receivedData[$this->groupName]))
+		{
+			if($this->receivedData[$this->groupName] < $value)
+			{
+				$this->groupValidation['type']='error';
+				$this->groupValidation['message'] = 'This value is too low';
+				$this->valid = false;
+			}
+		}
+		elseif(strlen($this->receivedData[$this->groupName]) < $value)
+		{
+			$this->groupValidation['type']='error';
+			$this->groupValidation['message'] = 'This value needs more characters';
+			$this->valid = false;
+		}
 	}
 
 	/**
@@ -204,10 +219,10 @@ class Form
 					$this->validateRequired();
 					break;
 				case 'min':
-					$this->validateMin();
+					$this->validateMin($value);
 					break;
 				case 'max':
-					$this->validateMax();
+					$this->validateMax($value);
 					break;
 			}
 		}
