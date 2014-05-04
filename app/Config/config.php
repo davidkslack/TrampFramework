@@ -41,6 +41,11 @@ define( 'TEMPLATE_PAGE', 'page.html.php' );
 define( 'APP_PATH', HOME .DS .'app' .DS );
 define( 'CONTROLLER_PATH', APP_PATH .'Controllers' .DS );
 
+/**
+ * Date format
+ */
+define('DATEFORMAT','d/m/Y H:i');
+
 
 /**
  * Configuration for: Database

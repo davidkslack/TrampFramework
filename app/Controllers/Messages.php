@@ -137,7 +137,11 @@ class Messages extends System\Controller
 					'label'=>'Created',
 					'classes'=>'datetime form-control',
 					//'disabled'=>true,
-					'value'=>date('d/m/Y H:i')
+					'value'=>date(DATEFORMAT),
+					'rules'=>array(
+						'before-date'=>'',
+						'after-date'=>''
+					)
 				),
 				/*'test_radio' => array(
 					'type'=>'radio',
