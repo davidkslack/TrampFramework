@@ -153,7 +153,12 @@ class FormValidation
 	 */
 	private function validateNumber()
 	{
-
+		if(!is_numeric($this->testValue))
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'The field does not consist of all numbers.';
+			$this->returnData['valid'] = false;
+		}
 	}
 
 	/**
@@ -161,7 +166,12 @@ class FormValidation
 	 */
 	private function validateLetters()
 	{
-
+		if(!ctype_alpha($this->testValue))
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'The field does not consist of all letters.';
+			$this->returnData['valid'] = false;
+		}
 	}
 
 	/**
