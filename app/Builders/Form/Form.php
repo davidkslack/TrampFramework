@@ -158,8 +158,6 @@ class Form
 			// If we have data back from the form validate it
 			if(!empty($this->receivedData) && isset($this->groupData['rules']))
 			{
-				// Create a new validation obj passing in the rules and value to test
-				$this->validate = new FormValidation();
 				$this->validate();
 			}
 
@@ -180,6 +178,9 @@ class Form
 	 */
 	private function validate()
 	{
+		// Create a new validation obj
+		$this->validate = new FormValidation();
+
 		// Go through the rules
 		foreach($this->groupData['rules'] as $rule => $ruleValue)
 		{
