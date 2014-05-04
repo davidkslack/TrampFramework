@@ -139,8 +139,8 @@ class Messages extends System\Controller
 					//'disabled'=>true,
 					'value'=>date(DATEFORMAT),
 					'rules'=>array(
-						'before-date'=>'06/05/2014',
-						'after-date'=>'03/05/2014'
+						'before-date'=>'2014-05-06 18:39',
+						'after-date'=>'2014-05-03 18:39'
 					)
 				),
 				/*'test_radio' => array(

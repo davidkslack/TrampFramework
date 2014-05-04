@@ -175,29 +175,39 @@ class FormValidation
 	}
 
 	/**
-	 * Validate the value falls before the rule date
+	 * Validate the value falls before the rule date to pass
+	 * NB. If UK date change the / to - eg 26/02/2014 changed to 26-02-2014
 	 */
 	private function validateBeforeDate()
 	{
-		// Change to timestamp using the default format (replace with dashes for UK time)
-		//var_dump($this->testValue);
-		//var_dump($this->ruleValue);
-		//exit;
+		// Change to timestamp using the default format
+		$testDate = new \DateTime($this->testValue);
+		$ruleDate = new \DateTime($this->ruleValue);
 
 		// Compare the dates
-
-		// Fail if the date falls after the date
+		if($testDate > $ruleDate)
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'This date is to far into the future, it should be before ' .$this->ruleValue;
+			$this->returnData['valid'] = false;
+		}
 	}
 
 	/**
-	 * Validate the value falls after the rule date
+	 * Validate the value falls after the rule date to pass
 	 */
 	private function validateAfterDate()
 	{
 		// Change to timestamp using the default format
+		$testDate = new \DateTime($this->testValue);
+		$ruleDate = new \DateTime($this->ruleValue);
 
 		// Compare the dates
-
-		// Fail if the date falls before the date
+		if($testDate < $ruleDate)
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'This date is to far into the past, it should be after ' .$this->ruleValue;
+			$this->returnData['valid'] = false;
+		}
 	}
 }
