@@ -150,7 +150,7 @@ class Controller //extends Template
 		}
 
 		// Error if anything is wrong
-		$this->outputJason(array('error','Incorrect token or referring IP'));
+		$this->outputJson(array('error','Incorrect token or referring IP'));
 		exit;
 	}
 } 
