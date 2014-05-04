@@ -12,12 +12,14 @@
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
+	<link rel="stylesheet" href="/css/system.css">
 	<link rel="stylesheet" href="/app/Templates/Default/css/style.css">
 
 	<script src="/script/jquery-1.11.0.min.js"></script>
 	<script src="/script/moment.js"></script>
 	<script src="/script/bootstrap.min.js"></script>
 	<script src="/script/bootstrap-datetimepicker.js"></script>
+	<script src="/script/system.js"></script>
 	<script src="/app/Templates/Default/js/script.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
