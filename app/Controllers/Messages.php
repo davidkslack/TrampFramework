@@ -92,6 +92,87 @@ class Messages extends System\Controller
 		$this->createDefaultForm();
 		$formData = $this->form;
 
+		/*$this->form = array(
+				'id' => 			'messagesForm',
+				'classes' => 		'validate form-horizontal',
+				'content' => array(
+					'description' => array(
+						'type'=>'textarea',
+						'label'=>'Description',
+						'rows'=>6,
+						'help'=>'What is the message all about',
+						'placeholder'=>'What is the message all about',
+						'rules'=>array(
+							'required'=>'required',
+							'minlength'=>3,
+							'maxlength'=>15,
+							'alphanumericExtras'=>true
+						),
+					),
+					'type' => array(
+						'type'=>'select',
+						'label'=>'Type',
+						'selected'=> 'error',
+						'help'=>'Choose the type of message this will be',
+						'options'=>array(
+							'hardware'=> 	'Hardware Issue',
+							'error'=> 		'Error',
+							'warning'=>		'Warning',
+							'info'=> 		'Info'
+						)
+					),
+					'user_id' => array(
+						'type'=>'number',
+						'help'=>'Admin user ID the message was created by',
+						'label'=>'User ID',
+						//'disabled'=>true,
+						'value'=>1,
+						'rules'=>array(
+							'required'=>'required',
+							'min'=>3,
+							'max'=>15
+						),
+					),
+					'created' => array(
+						'type'=>'datetime',
+						'help'=>'Date the message was created',
+						'label'=>'Created',
+						'classes'=>'datetime form-control',
+						//'disabled'=>true,
+						'value'=>date(DATEFORMAT),
+						'rules'=>array(
+							'before-date'=>'2014-05-06 18:39',
+							'after-date'=>'2014-05-03 18:39'
+						)
+					),
+					/*'test_radio' => array(
+						'type'=>'radio',
+						'label'=>'test radio',
+						'options'=>array(
+							'1'=>'b1',
+							'2'=>'b2',
+							'3'=>'b3',
+							'4'=>'b4'
+						)
+					),
+					'test_tick' => array(
+						'type'=>'checkbox',
+						'label'=>'test checkbox',
+						'options'=>array(
+							'1'=>'b1',
+							'2'=>'b2',
+							'3'=>'b3',
+							'4'=>'b4'
+						)
+					),*
+					'submit' => array(
+						'type'=>'submit',
+						'label'=>'',
+						'value'=>'Save'
+					)
+				),
+			);*/
+
 		// Create the form from the data
 		$form = new Form( $formData );
 

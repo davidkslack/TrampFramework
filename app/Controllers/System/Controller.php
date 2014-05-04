@@ -13,7 +13,7 @@ class Controller //extends Template
 	private $viewFile;
 	private $view = '';
 	private $template;
-	protected $form;
+	protected $form = array();
 	public $data = array();
 	public $viewMessages = '';
 	public $DBConnection;
@@ -70,8 +70,8 @@ class Controller //extends Template
 	public function index()
 	{
 		$this->data['title'] = 'Default view';
-		$this->description = 'Messages - Lists all the messages in the system';
-		$this->keywords = 'Messages';
+		$this->description = 'Default index page';
+		$this->keywords = '';
 
 		$this->show( NULL, $this->data );
 	}
@@ -159,96 +159,34 @@ class Controller //extends Template
 
 	protected function createDefaultForm()
 	{
-		// Setup the form
-		$this->form = array();
-
-
-
 		// Test if there is a model
+		if(is_object($this->model))
+		{
+			// Get the default table info
+			$tableRowInfo = $this->model->describe();
 
-		// Get the default table info
+			// Get the class name
+			$className = explode( '\\', get_class($this) );
+			$className = end( $className );
 
-		// Loop through the table and create the from
+			// Basic info
+			$this->form = array(
+				'id' => $className .'Form',
+				'classes' => 'validate form-horizontal'
+			);
 
-		$this->form = array(
-			'id' => 			'messagesForm',
-			'classes' => 		'validate form-horizontal',
-			'content' => array(
-				'description' => array(
-					'type'=>'textarea',
-					'label'=>'Description',
-					'rows'=>6,
-					'help'=>'What is the message all about',
-					'placeholder'=>'What is the message all about',
-					'rules'=>array(
-						'required'=>'required',
-						'minlength'=>3,
-						'maxlength'=>15,
-						'alphanumericExtras'=>true
-					),
-				),
-				'type' => array(
-					'type'=>'select',
-					'label'=>'Type',
-					'selected'=> 'error',
-					'help'=>'Choose the type of message this will be',
-					'options'=>array(
-						'hardware'=> 	'Hardware Issue',
-						'error'=> 		'Error',
-						'warning'=>		'Warning',
-						'info'=> 		'Info'
-					)
-				),
-				'user_id' => array(
-					'type'=>'number',
-					'help'=>'Admin user ID the message was created by',
-					'label'=>'User ID',
-					//'disabled'=>true,
-					'value'=>1,
-					'rules'=>array(
-						'required'=>'required',
-						'min'=>3,
-						'max'=>15
-					),
-				),
-				'created' => array(
-					'type'=>'datetime',
-					'help'=>'Date the message was created',
-					'label'=>'Created',
-					'classes'=>'datetime form-control',
-					//'disabled'=>true,
-					'value'=>date(DATEFORMAT),
-					'rules'=>array(
-						'before-date'=>'2014-05-06 18:39',
-						'after-date'=>'2014-05-03 18:39'
-					)
-				),
-				/*'test_radio' => array(
-					'type'=>'radio',
-					'label'=>'test radio',
-					'options'=>array(
-						'1'=>'b1',
-						'2'=>'b2',
-						'3'=>'b3',
-						'4'=>'b4'
-					)
-				),
-				'test_tick' => array(
-					'type'=>'checkbox',
-					'label'=>'test checkbox',
-					'options'=>array(
-						'1'=>'b1',
-						'2'=>'b2',
-						'3'=>'b3',
-						'4'=>'b4'
-					)
-				),*/
-				'submit' => array(
-					'type'=>'submit',
-					'label'=>'',
-					'value'=>'Save'
-				)
-			),
-		);
+			// Loop through the table and create the from
+			foreach($tableRowInfo as $rowInfo)
+			{
+				//$rowInfo
+				$this->form['content'][$rowInfo['Field']] = array(
+						'type' => 'text',
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) )
+
+				);
+			}
+		}
+
+
 	}
 } 
