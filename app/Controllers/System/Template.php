@@ -12,7 +12,7 @@ class Template
 	protected $headerDescription;
 	protected $headerKeywords;
 	protected $bodyClass;
-	protected $templateFile;
+	public $templateFile;
 	protected $templateDir;
 
 	function __construct()

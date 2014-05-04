@@ -8,10 +8,11 @@ namespace Controllers\System;
 
 use Builders\Messages;
 
-class Controller extends Template
+class Controller //extends Template
 {
 	private $viewFile;
 	private $view = '';
+	private $template;
 	public $data = array();
 	public $viewMessages = '';
 	public $DBConnection;
@@ -37,6 +38,9 @@ class Controller extends Template
 	 */
 	public function show( $view=NULL, $content=NULL )
 	{
+		// Create the template obj
+		$this->template = new Template();
+
 		// Get the correct view to use with the template
 		$this->viewFile = $view;
 
@@ -54,7 +58,7 @@ class Controller extends Template
 		ob_end_clean();
 
 		// Output the Template
-		include( $this->templateFile );
+		include( $this->template->templateFile );
 	}
 
 	/**

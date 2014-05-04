@@ -19,8 +19,6 @@ class Messages extends System\Controller
 		// TODO: Make sure to test $this->model exists first, then test a db table exists only then create the model
 		$this->model = new \Models\Messages();
 
-		parent::__construct();
-
 		// Default view stuff
 		$this->data['title'] = 'Messages';
 		$this->data['content'] = "";
