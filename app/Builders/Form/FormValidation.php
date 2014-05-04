@@ -179,7 +179,14 @@ class FormValidation
 	 */
 	private function validateBeforeDate()
 	{
+		// Change to timestamp using the default format (replace with dashes for UK time)
+		//var_dump($this->testValue);
+		//var_dump($this->ruleValue);
+		//exit;
 
+		// Compare the dates
+
+		// Fail if the date falls after the date
 	}
 
 	/**
@@ -187,6 +194,10 @@ class FormValidation
 	 */
 	private function validateAfterDate()
 	{
+		// Change to timestamp using the default format
 
+		// Compare the dates
+
+		// Fail if the date falls before the date
 	}
 }
