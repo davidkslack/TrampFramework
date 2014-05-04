@@ -69,28 +69,6 @@ class Form
 	}
 
 	/**
-	 * Get the data from the correct method and forget the wrong method
-	 */
-	private function getReceivedData()
-	{
-		if($this->method == 'GET' || $this->method == 'get')
-		{
-			// We have data so assume valid until we test
-			$this->valid = true;
-
-			if(!empty($_GET))
-				$this->receivedData = $_GET;
-		}
-		elseif(!empty($_POST))
-		{
-			// We have data so assume valid until we test
-			$this->valid = true;
-
-			$this->receivedData = $_POST;
-		}
-	}
-
-	/**
 	 * Create the form
 	 * @param array $formData
 	 */
@@ -117,6 +95,28 @@ class Form
 		include 'Views/form.html.php';
 		$this->form = ob_get_contents();
 		ob_end_clean();
+	}
+
+	/**
+	 * Get the data from the correct method and forget the wrong method
+	 */
+	private function getReceivedData()
+	{
+		if($this->method == 'GET' || $this->method == 'get')
+		{
+			// We have data so assume valid until we test
+			$this->valid = true;
+
+			if(!empty($_GET))
+				$this->receivedData = $_GET;
+		}
+		elseif(!empty($_POST))
+		{
+			// We have data so assume valid until we test
+			$this->valid = true;
+
+			$this->receivedData = $_POST;
+		}
 	}
 
 	/**
@@ -229,6 +229,46 @@ class Form
 	}
 
 	/**
+	 * Validate the value is alphanumeric
+	 */
+	private function validateAlphanumeric()
+	{
+
+	}
+
+	/**
+	 * Validate the value is a number
+	 */
+	private function validateNumber()
+	{
+
+	}
+
+	/**
+	 * Validate the value is letters only
+	 */
+	private function validateLetters()
+	{
+
+	}
+
+	/**
+	 * Validate the value falls before the rule date
+	 */
+	private function validateBeforeDate()
+	{
+
+	}
+
+	/**
+	 * Validate the value falls after the rule date
+	 */
+	private function validateAfterDate()
+	{
+
+	}
+
+	/**
 	 * Validate the form
 	 */
 	private function validate()
@@ -247,6 +287,21 @@ class Form
 					break;
 				case 'max':
 					$this->validateMax($value);
+					break;
+				case 'alphanumeric':
+					$this->validateAlphanumeric($value);
+					break;
+				case 'numbers':
+					$this->validateNumber($value);
+					break;
+				case 'letters':
+					$this->validateLetters($value);
+					break;
+				case 'before-date':
+					$this->validateBeforeDate($value);
+					break;
+				case 'after-date':
+					$this->validateAfterDate($value);
 					break;
 			}
 		}
