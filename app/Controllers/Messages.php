@@ -182,6 +182,17 @@ class Messages extends System\Controller
 
 		// Call the view with the the data to add in
 		$this->show( 'add', $this->data );
+	}
 
+	/**
+	 * Describe the messages table
+	 */
+	public function describe()
+	{
+		// Add our new table to the content
+		$this->data['content'] = '<pre>' .print_r($this->model->describe(), true);
+
+		// Call the view with the the data to add in
+		$this->show( 'index', $this->data );
 	}
 } 

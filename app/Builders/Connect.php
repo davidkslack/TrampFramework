@@ -68,10 +68,16 @@ class Connect {
 			$stmt = $this->data->prepare($query);
 			$stmt->execute($params);
 
-			// If we are using a delete string then don't try to show the results
+			// If we are using a select string then show the results
 			$select = strpos($stmt->queryString, 'SELECT');
 			if($select !== false)
 				return $stmt->fetchAll();
+
+			// If we are using a select string then show the results
+			$describe = strpos($stmt->queryString, 'DESCRIBE');
+			if($describe !== false)
+				return $stmt->fetchAll();
+
 		}catch(\PDOException $e){
 			throw new \Exception($e->getMessage());
 		}

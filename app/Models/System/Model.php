@@ -164,5 +164,13 @@ class Model extends Connect
 		$this->execute( $this->query );
 	}
 
+	/**
+	 * Describe the table
+	 * @return mixed
+	 */
+	public function describe()
+	{
+		return $this->execute( 'DESCRIBE ' .$this->table );
+	}
 
 }
