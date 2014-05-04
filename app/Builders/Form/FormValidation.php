@@ -16,7 +16,7 @@ class FormValidation
 	 * @param $rule string		Rule to test against
 	 * @param $ruleValue  		Value of the rule to test against
 	 * @param $testValue 		What to test
-	 * @return array 	true if passed, array if failed
+	 * @return array 			Empty array if passed, type, message and valid=false if failed
 	 */
 	public function rules($rule, $ruleValue, $testValue)
 	{
