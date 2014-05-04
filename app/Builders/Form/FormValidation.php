@@ -41,6 +41,9 @@ class FormValidation
 			case 'alphanumeric':
 				$this->validateAlphanumeric($testValue);
 				break;
+			case 'alphanumericExtras':
+				$this->validateAlphanumericExtras($testValue);
+				break;
 			case 'numbers':
 				$this->validateNumber($testValue);
 				break;
@@ -125,6 +128,19 @@ class FormValidation
 	private function validateAlphanumeric()
 	{
 		if (!ctype_alnum($this->testValue))
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'The field does not consist of all letters or digits.';
+			$this->returnData['valid'] = false;
+		}
+	}
+
+	/**
+	 * Validate the value is a Alphanumeric, underscores or dashes
+	 */
+	private function validateAlphanumericExtras()
+	{
+		if (preg_match('/^[\w#-]+$/', $this->testValue) != 1)
 		{
 			$this->returnData['type']='error';
 			$this->returnData['message'] = 'The field does not consist of all letters or digits.';

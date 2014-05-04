@@ -104,7 +104,7 @@ class Messages extends System\Controller
 						'required'=>'required',
 						'min'=>3,
 						'max'=>15,
-						'alphanumeric'=>true
+						'alphanumericExtras'=>true
 					),
 				),
 				'type' => array(
