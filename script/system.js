@@ -1,5 +1,7 @@
 // JS Date format
-var DATEFORMAT = 'DD/MM/YYYY HH:mm';
+//var DATEFORMAT-UK = 'DD/MM/YYYY HH:mm';
+//var DATEFORMAT-US = 'MM/DD/YYYY HH:mm';
+var DATEFORMAT = 'YYYY-MM-DD HH:mm';
 
 $(document).ready(function(){
 

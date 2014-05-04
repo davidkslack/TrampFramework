@@ -44,7 +44,9 @@ define( 'CONTROLLER_PATH', APP_PATH .'Controllers' .DS );
 /**
  * Date format
  */
-define('DATEFORMAT','d/m/Y H:i');
+define('DATEFORMAT-UK','d/m/Y H:i');
+define('DATEFORMAT-US','m/d/Y H:i');
+define('DATEFORMAT','Y-m-d H:i');
 
 
 /**
