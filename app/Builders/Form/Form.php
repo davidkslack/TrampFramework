@@ -36,6 +36,7 @@
  *
  */
 namespace Builders\Form;
+
 class Form
 {
 	public $valid = NULL;
@@ -60,6 +61,8 @@ class Form
 	private $groupValue = '';
 	private $groupHelp = '';
 	private $groupRules = '';
+
+	private $validate;
 
 	function __construct($formData = NULL)
 	{
@@ -154,9 +157,14 @@ class Form
 			// Validation
 			// If we have data back from the form validate it
 			if(!empty($this->receivedData) && isset($this->groupData['rules']))
+			{
+				// Create a new validation obj passing in the rules and value to test
+				//$this->validate = new FormValidation($this->groupData['rules'], $this->receivedData[$this->groupName]);
 				$this->validate();
+			}
 
-			//$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
+
+			// We have something to validate and we have a message to show
 			if(is_array($this->groupValidation) && $this->groupValidation['message']!='')
 				$this->groupHelp .= '<span class="help-block">' .$this->groupValidation['message'] .'</span>';
 
