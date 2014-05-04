@@ -103,7 +103,8 @@ class Messages extends System\Controller
 					'rules'=>array(
 						'required'=>'required',
 						'min'=>3,
-						'max'=>15
+						'max'=>15,
+						'alphanumeric'=>true
 					),
 				),
 				'type' => array(

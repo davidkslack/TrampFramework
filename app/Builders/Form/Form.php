@@ -184,12 +184,12 @@ class Form
 	/**
 	 * Error if the value is less than the min rule
 	 */
-	private function validateMin($value)
+	private function validateMin($testValue, $ruleValue)
 	{
 		// We have a number
-		if(is_numeric($this->receivedData[$this->groupName]))
+		if(is_numeric($testValue))
 		{
-			if($this->receivedData[$this->groupName] < $value)
+			if($this->receivedData[$this->groupName] < $ruleValue)
 			{
 				$this->groupValidation['type']='error';
 				$this->groupValidation['message'] = 'This value is too low';
@@ -197,7 +197,7 @@ class Form
 			}
 		}
 		// No number
-		elseif(strlen($this->receivedData[$this->groupName]) < $value)
+		elseif(strlen($this->receivedData[$this->groupName]) < $ruleValue)
 		{
 			$this->groupValidation['type']='error';
 			$this->groupValidation['message'] = 'This value needs more characters';
@@ -208,19 +208,19 @@ class Form
 	/**
 	 * Error if the value is more than the max rule
 	 */
-	private function validateMax($value)
+	private function validateMax($testValue, $ruleValue)
 	{
 		// We have a number
-		if(is_numeric($this->receivedData[$this->groupName]))
+		if(is_numeric($testValue))
 		{
-			if($this->receivedData[$this->groupName] > $value)
+			if($this->receivedData[$this->groupName] > $ruleValue)
 			{
 				$this->groupValidation['type']='error';
 				$this->groupValidation['message'] = 'This value is too high';
 				$this->valid = false;
 			}
 		}
-		elseif(strlen($this->receivedData[$this->groupName]) > $value)
+		elseif(strlen($testValue) > $ruleValue)
 		{
 			$this->groupValidation['type']='error';
 			$this->groupValidation['message'] = 'This value needs less characters';
@@ -231,15 +231,20 @@ class Form
 	/**
 	 * Validate the value is alphanumeric
 	 */
-	private function validateAlphanumeric()
+	private function validateAlphanumeric($testValue)
 	{
-
+		if (!ctype_alnum($testValue))
+		{
+			$this->groupValidation['type']='error';
+			$this->groupValidation['message'] = 'The field does not consist of all letters or digits.';
+			$this->valid = false;
+		}
 	}
 
 	/**
 	 * Validate the value is a number
 	 */
-	private function validateNumber()
+	private function validateNumber($ruleValue)
 	{
 
 	}
@@ -247,7 +252,7 @@ class Form
 	/**
 	 * Validate the value is letters only
 	 */
-	private function validateLetters()
+	private function validateLetters($ruleValue)
 	{
 
 	}
@@ -255,7 +260,7 @@ class Form
 	/**
 	 * Validate the value falls before the rule date
 	 */
-	private function validateBeforeDate()
+	private function validateBeforeDate($testValue, $ruleValue)
 	{
 
 	}
@@ -263,7 +268,7 @@ class Form
 	/**
 	 * Validate the value falls after the rule date
 	 */
-	private function validateAfterDate()
+	private function validateAfterDate($testValue, $ruleValue)
 	{
 
 	}
@@ -274,8 +279,10 @@ class Form
 	private function validate()
 	{
 		// Go through the rules
-		foreach($this->groupData['rules'] as $rule => $value)
+		foreach($this->groupData['rules'] as $rule => $ruleValue)
 		{
+			$testValue = $this->receivedData[$this->groupName];
+
 			// Make sure we tet the correct rules
 			switch($rule)
 			{
@@ -283,25 +290,25 @@ class Form
 					$this->validateRequired();
 					break;
 				case 'min':
-					$this->validateMin($value);
+					$this->validateMin($testValue, $ruleValue);
 					break;
 				case 'max':
-					$this->validateMax($value);
+					$this->validateMax($testValue, $ruleValue);
 					break;
 				case 'alphanumeric':
-					$this->validateAlphanumeric($value);
+					$this->validateAlphanumeric($testValue);
 					break;
 				case 'numbers':
-					$this->validateNumber($value);
+					$this->validateNumber($testValue);
 					break;
 				case 'letters':
-					$this->validateLetters($value);
+					$this->validateLetters($testValue);
 					break;
 				case 'before-date':
-					$this->validateBeforeDate($value);
+					$this->validateBeforeDate($testValue, $ruleValue);
 					break;
 				case 'after-date':
-					$this->validateAfterDate($value);
+					$this->validateAfterDate($testValue, $ruleValue);
 					break;
 			}
 		}
