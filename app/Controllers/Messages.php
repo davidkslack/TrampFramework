@@ -92,7 +92,7 @@ class Messages extends System\Controller
 
 		$formData = array(
 			'id' => 			'messagesForm',
-			'classes' => 		'form-horizontal',
+			'classes' => 		'validate form-horizontal',
 			'content' => array(
 				'description' => array(
 					'type'=>'textarea',
@@ -102,8 +102,8 @@ class Messages extends System\Controller
 					'placeholder'=>'What is the message all about',
 					'rules'=>array(
 						'required'=>'required',
-						'min'=>3,
-						'max'=>15,
+						'minlength'=>3,
+						'maxlength'=>15,
 						'alphanumericExtras'=>true
 					),
 				),

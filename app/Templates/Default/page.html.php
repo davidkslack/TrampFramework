@@ -19,6 +19,7 @@
 	<script src="/script/moment.js"></script>
 	<script src="/script/bootstrap.min.js"></script>
 	<script src="/script/bootstrap-datetimepicker.js"></script>
+	<script src="/script/jquery.validate.js"></script>
 	<script src="/script/system.js"></script>
 	<script src="/app/Templates/Default/js/script.js"></script>
 

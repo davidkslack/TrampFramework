@@ -38,6 +38,12 @@ class FormValidation
 			case 'max':
 				$this->validateMax($testValue, $ruleValue);
 				break;
+			case 'minlength':
+				$this->validateMinChar($testValue, $ruleValue);
+				break;
+			case 'maxlength':
+				$this->validateMaxChar($testValue, $ruleValue);
+				break;
 			case 'alphanumeric':
 				$this->validateAlphanumeric($testValue);
 				break;
@@ -90,11 +96,10 @@ class FormValidation
 				$this->returnData['valid'] = false;
 			}
 		}
-		// No number
-		elseif(strlen($this->testValue) < $this->ruleValue)
+		else
 		{
 			$this->returnData['type']='error';
-			$this->returnData['message'] = 'This value needs more characters';
+			$this->returnData['message'] = 'This value must be a number';
 			$this->returnData['valid'] = false;
 		}
 	}
@@ -114,7 +119,33 @@ class FormValidation
 				$this->returnData['valid'] = false;
 			}
 		}
-		elseif(strlen($this->testValue) > $this->ruleValue)
+		else
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'This value must be a number';
+			$this->returnData['valid'] = false;
+		}
+	}
+
+	/**
+	 * Error if the value is less than the min rule
+	 */
+	private function validateMinChar()
+	{
+		if(strlen($this->testValue) < $this->ruleValue)
+		{
+			$this->returnData['type']='error';
+			$this->returnData['message'] = 'This value needs more characters';
+			$this->returnData['valid'] = false;
+		}
+	}
+
+	/**
+	 * Error if the value is more than the max rule
+	 */
+	private function validateMaxChar()
+	{
+		if(strlen($this->testValue) > $this->ruleValue)
 		{
 			$this->returnData['type']='error';
 			$this->returnData['message'] = 'This value needs less characters';

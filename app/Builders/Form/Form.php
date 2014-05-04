@@ -138,7 +138,8 @@ class Form
 			$this->groupSelected = isset($this->groupData['selected']) ? $this->groupData['selected'] : null;
 			$this->groupValidation = isset($this->groupData['validation']) ? $this->groupData['validation'] : '';
 			$this->groupDisabled = isset($this->groupData['disabled']) ? ' disabled' : '';
-			$this->groupHelp = isset($this->groupData['help']) ? '<span class="help-block">' .$this->groupData['help'] .'</span>' : '';
+			$this->groupHelp = isset($this->groupData['help']) ? '<p>' .$this->groupData['help'] .'</p>' : '';
+			$this->groupRules = isset($this->groupData['rules']) ? $this->groupData['rules'] : '';
 			if(isset($this->groupData['rules'])) $this->createRules($this->groupData['rules']);
 
 			// Fill the value if we have one
@@ -404,7 +405,7 @@ class Form
 		if(!empty($this->receivedData) && isset($this->receivedData[$this->groupName]))
 			$this->groupValue = $this->receivedData[$this->groupName];
 
-		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'" name="' .$this->groupName .'" value="' .$this->groupValue .'" ' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .'>' .$this->groupHelp;
+		$this->formContent .= '<input id="' .$this->groupName .'" type="' .$this->groupData['type'] .'" name="' .$this->groupName .'" value="' .$this->groupValue .'" ' .$this->groupID .$this->groupClasses .$this->groupPlaceHolder .$this->groupDisabled .$this->groupRules .'>' .$this->groupHelp;
 	}
 
 	/**
