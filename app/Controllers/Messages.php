@@ -194,6 +194,7 @@ class Messages extends System\Controller
 
 	/**
 	 * Describe the messages table
+	 * This is temporary to show the info of the table if we go to /messages/describe
 	 */
 	public function describe()
 	{

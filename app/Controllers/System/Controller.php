@@ -13,12 +13,37 @@ class Controller //extends Template
 	private $viewFile;
 	private $view = '';
 	private $template;
+
 	public $data = array();
 	public $viewMessages = '';
 	public $DBConnection;
 	public $model;
 
 	protected $form = array();
+
+	/**
+	 * The default template vars
+	 */
+	private function defaultTemplateVars()
+	{
+		$this->data['title'] = 'Default Title';
+		$this->data['keywords'] = 'Default keywords';
+		$this->data['description'] = 'Default - the default description';
+		$this->data['bodyClass'] = 'default';
+	}
+
+	/**
+	 * Index function
+	 * This function should be overridden to show the basic page
+	 */
+	public function index()
+	{
+		// Make sure we use the default template vars
+		$this->defaultTemplateVars();
+
+		// Show the template with default data
+		$this->show( NULL, $this->data );
+	}
 
 	/**
 	 * Put the view together
@@ -52,19 +77,6 @@ class Controller //extends Template
 
 		// Create the template
 		$this->template = new Template($this->view, $content);
-	}
-
-	/**
-	 * Index function
-	 * This function should be overridden to show the basic page
-	 */
-	public function index()
-	{
-		$this->data['title'] = 'Default view';
-		$this->description = 'Default index page';
-		$this->keywords = '';
-
-		$this->show( NULL, $this->data );
 	}
 
 	/**
