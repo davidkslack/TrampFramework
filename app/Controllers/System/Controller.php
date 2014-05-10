@@ -13,17 +13,12 @@ class Controller //extends Template
 	private $viewFile;
 	private $view = '';
 	private $template;
-	protected $form = array();
 	public $data = array();
 	public $viewMessages = '';
 	public $DBConnection;
 	public $model;
 
-	// Template vars
-	public $headerTitle = 'Default title';
-	public $description = '';
-	public $keywords = '';
-
+	protected $form = array();
 
 	/**
 	 * Put the view together
@@ -45,27 +40,18 @@ class Controller //extends Template
 	 */
 	public function show( $view=NULL, $content=NULL )
 	{
-		// Create the template obj
-		$this->template = new Template();
-
-		// Get the correct view to use with the template
-		$this->viewFile = $view;
-
-		// Create messages
+		// Create messages to show in the view
 		$messageBuilder = new Messages();
 		$this->viewMessages = $messageBuilder->showMessages();
+
+		// The view we want to show
+		$this->viewFile = $view;
 
 		// Create the view
 		$this->createView();
 
-		// Put the content array into the view
-		ob_start();
-		include $this->view;
-		$content = ob_get_contents();
-		ob_end_clean();
-
-		// Output the Template
-		include( $this->template->templateFile );
+		// Create the template
+		$this->template = new Template($this->view, $content);
 	}
 
 	/**
@@ -161,7 +147,10 @@ class Controller //extends Template
 		exit;
 	}
 
-
+	/**
+	 * Create a default form
+	 * If we have a model we can assume we will need to edit/add to the model
+	 */
 	protected function createDefaultForm()
 	{
 		// Test if there is a model
@@ -191,7 +180,5 @@ class Controller //extends Template
 				);
 			}
 		}
-
-
 	}
 } 

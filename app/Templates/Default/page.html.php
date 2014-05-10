@@ -4,9 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="<?php print $this->description ?><">
-	<meta name="keywords" content="<?php print $this->keywords ?><">
-	<title><?php print $this->headerTitle ?></title>
+	<meta name="description" content="<?php print $description ?><">
+	<meta name="keywords" content="<?php print $keywords ?><">
+	<title><?php print $headerTitle ?></title>
 
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -30,7 +30,7 @@
 	<![endif]-->
 </head>
 
-<body>
+<body class="<?php print $bodyClass ?>">
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -66,7 +66,7 @@
 		</div>
 
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<?php print $this->viewMessages ?>
+			<?php //print $this->viewMessages ?>
 			<?php print $content ?>
 		</div>
 	</div>

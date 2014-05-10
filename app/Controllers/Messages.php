@@ -20,12 +20,11 @@ class Messages extends System\Controller
 		$this->model = new \Models\Messages();
 
 		// Default template stuff
-		$this->headerTitle = 'Messages';
-		$this->description = 'Messages - Lists all the messages in the system';
-		$this->keywords = 'Messages';
-
-		// Default view stuff
 		$this->data['title'] = 'Messages';
+		$this->data['headerTitle'] = 'Messages';
+		$this->data['keywords'] = 'Messages';
+		$this->data['description'] = 'Messages - Shows all the messages in the system';
+		$this->data['bodyClass'] = 'messages';
 		$this->data['content'] = "";
 	}
 
