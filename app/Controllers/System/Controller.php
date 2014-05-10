@@ -19,6 +19,11 @@ class Controller //extends Template
 	public $DBConnection;
 	public $model;
 
+	// Template vars
+	public $headerTitle = 'Default title';
+	public $description = '';
+	public $keywords = '';
+
 
 	/**
 	 * Put the view together

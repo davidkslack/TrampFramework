@@ -19,11 +19,14 @@ class Messages extends System\Controller
 		// TODO: Make sure to test $this->model exists first, then test a db table exists only then create the model
 		$this->model = new \Models\Messages();
 
+		// Default template stuff
+		$this->headerTitle = 'Messages';
+		$this->description = 'Messages - Lists all the messages in the system';
+		$this->keywords = 'Messages';
+
 		// Default view stuff
 		$this->data['title'] = 'Messages';
 		$this->data['content'] = "";
-		$this->description = 'Messages - Lists all the messages in the system';
-		$this->keywords = 'Messages';
 	}
 
 	/**
