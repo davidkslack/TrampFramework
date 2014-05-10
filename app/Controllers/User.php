@@ -12,8 +12,6 @@ class User extends System\Controller
 {
 	function __construct()
 	{
-		parent::__construct();
-
 		// Model to use with this controller
 		$this->model = new Admin();
 
