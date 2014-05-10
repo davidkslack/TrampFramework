@@ -29,6 +29,7 @@ class Template
 		$description = $this->createDescription();
 		$keywords = $this->createKeywords();
 		$bodyClass = $this->createBodyClass();
+		$messages = $content['messages'];
 
 		// Get the correct view to use
 		$this->view = $view;

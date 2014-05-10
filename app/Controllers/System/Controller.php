@@ -42,7 +42,7 @@ class Controller //extends Template
 	{
 		// Create messages to show in the view
 		$messageBuilder = new Messages();
-		$this->viewMessages = $messageBuilder->showMessages();
+		$content['messages'] = $messageBuilder->showMessages();
 
 		// The view we want to show
 		$this->viewFile = $view;
