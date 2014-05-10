@@ -46,6 +46,82 @@ class Controller //extends Template
 	}
 
 	/**
+	 * Default to be overridden
+	 */
+	public function add()
+	{
+		// Make sure we use the default template vars
+		$this->defaultTemplateVars();
+
+		// Edit the template vars
+		$this->data['title'] = 'Add';
+		$this->data['content'] = 'Add the default add form here';
+
+		// Show the template with default data
+		$this->show( NULL, $this->data );
+	}
+
+	/**
+	 * Default to be overridden
+	 * @param $params array 	These are the parameters passed in via the query string
+	 */
+	public function edit($params)
+	{
+		// Make sure we use the default template vars
+		$this->defaultTemplateVars();
+
+		// Edit the template vars
+		$this->data['title'] = 'Edit';
+		$this->data['content'] = 'Add the default edit form here';
+
+		// Show the template with default data
+		$this->show( 'index', $this->data );
+	}
+
+	/**
+	 * Default to be overridden
+	 * @param $params array 	These are the parameters passed in via the query string
+	 */
+	public function delete($params)
+	{
+		// Make sure we use the default template vars
+		$this->defaultTemplateVars();
+
+		// Edit the template vars
+		$this->data['title'] = 'Delete';
+		$this->data['content'] = "Add the 'Are you sure?' here'";
+
+		// Show the template with default data
+		$this->show( NULL, $this->data );
+	}
+
+	/**
+	 * Default to be overridden
+	 * @param $params array 	These are the parameters passed in via the query string
+	 */
+	public function view($params)
+	{
+		// Make sure we use the default template vars
+		$this->defaultTemplateVars();
+
+		// Edit the template vars
+		$this->data['title'] = 'View';
+
+		// The params should be an array and the first param should be the view ID
+		$id = 0;
+		if(is_array($params)) $id = $params[0];
+
+		// Get the array by the ID
+		$array = $this->model->get($id);
+
+		foreach($array as $property => $value)
+			$this->data['content'] .= $property .': <strong>' .$value .'</strong><br>';
+
+		// Show the template with default data
+		$this->show( 'index', $this->data );
+	}
+
+	/**
 	 * Put the view together
 	 */
 	public function createView()
@@ -86,26 +162,6 @@ class Controller //extends Template
 	{
 		header('Location: ' .$to);
 		exit;
-	}
-
-	/**
-	 * View all the info on 1 thing
-	 * @param $params array 	These are the parameters passed in via the query string
-	 */
-	public function view($params)
-	{
-		// The params should be an array and the first param should be the view ID
-		$id = 0;
-		if(is_array($params)) $id = $params[0];
-
-		// Get the array by the ID
-		$array = $this->model->get($id);
-
-		foreach($array as $property => $value)
-			$this->data['content'] .= $property .': <strong>' .$value .'</strong><br>';
-
-		// Call the view with the the data to add in
-		$this->show( 'index', $this->data );
 	}
 
 	/**
