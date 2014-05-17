@@ -7,6 +7,7 @@
 namespace Controllers\System;
 
 use Builders\Messages;
+use Builders\Form\Form;
 
 class Controller //extends Template
 {
@@ -50,15 +51,56 @@ class Controller //extends Template
 	 */
 	public function add()
 	{
-		// Make sure we use the default template vars
-		$this->defaultTemplateVars();
 
-		// Edit the template vars
-		$this->data['title'] = 'Add';
-		$this->data['content'] = 'Add the default add form here';
+		// If we have no title we should add one
+		if(!isset($this->data['title']))
+		{
+			// Make sure we use the default template vars
+			$this->defaultTemplateVars();
+			$this->data['title'] = 'Add';
+		}
+		else
+			$this->data['title'] .= ' - Add';
 
-		// Show the template with default data
-		$this->show( NULL, $this->data );
+		// If we have a modal set we can use the add form
+		if(isset($this->model))
+		{
+			// Create the form and add it to the form data
+			$this->createDefaultForm();
+			$formData = $this->form;
+
+			// Create the form from the data
+			$form = new Form( $formData );
+
+			// Add our new form to the content
+			$this->data['content'] = (string)$form;
+
+			// If the form passes all the validation
+			if($form->valid == true)
+			{
+				/*print 'Post';
+				var_dump($_POST);
+
+				print 'Get';
+				var_dump($_GET);
+
+				exit;
+				//*/
+
+				// Save the form
+				new Messages(array('success', 'Form was saved.'));
+			}
+
+			// Show the template with default data
+			$this->show( 'index', $this->data );
+		}
+		else
+		{
+			$this->data['content'] = 'Please add a model so we can add the default form.';
+
+			// Show the template with default data
+			$this->show( 'index', $this->data );
+		}
 	}
 
 	/**

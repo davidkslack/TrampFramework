@@ -6,7 +6,6 @@
  */
 
 namespace Controllers;
-use Builders\Form\Form;
 use Builders\Table;
 
 class Messages extends System\Controller
@@ -85,7 +84,7 @@ class Messages extends System\Controller
 		$this->redirect('/admin/messages/');
 	}
 
-	public function add()
+	/*public function add()
 	{
 		$this->data['title'] = 'Add messages';
 		$this->data['content'] = "";
@@ -173,7 +172,7 @@ class Messages extends System\Controller
 						'value'=>'Save'
 					)
 				),
-			);*/
+			);*
 
 		// Override the form data
 
@@ -187,6 +186,13 @@ class Messages extends System\Controller
 		//TODO: $this->request, $this->request->get and $this->request->post need to be created so we can save the form
 		if($form->valid == true)
 		{
+			print 'Post';
+			var_dump($_POST);
+
+			print 'Get';
+			var_dump($_GET);
+
+			exit;
 			// Save the form
 			new \Builders\Messages(array('success', 'Form was saved.'));
 		}
