@@ -107,19 +107,44 @@ class Form
 	{
 		if($this->method == 'GET' || $this->method == 'get')
 		{
+			// Clean our get data
+			$cleanedGet = $this->cleanInput($_GET);
+
 			// We have data so assume valid until we test
 			$this->valid = true;
 
 			if(!empty($_GET))
-				$this->receivedData = $_GET;
+				$this->receivedData = $cleanedGet;
 		}
 		elseif(!empty($_POST))
 		{
+			// Clean our post data
+			$cleanedPost = $this->cleanInput($_POST);
+
 			// We have data so assume valid until we test
 			$this->valid = true;
 
-			$this->receivedData = $_POST;
+			$this->receivedData = $cleanedPost;
+
+			var_dump($this->receivedData);
 		}
+	}
+
+	/**
+	 * Clean any input before adding to the DB
+	 * @param $input array
+	 * @return string
+	 */
+	private function cleanInput($input)
+	{
+		// Trim the spaces from the beginning and end
+		//$input = trim($input);
+		$input = array_map(function($val) { return trim($val); }, $input);
+
+		// Will encode chars so we have no issues with scripts running
+		$input = filter_var_array($input, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+		return $input;
 	}
 
 	/**

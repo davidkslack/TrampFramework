@@ -65,12 +65,11 @@ class Controller //extends Template
 		// If we have a modal set we can use the add form
 		if(isset($this->model))
 		{
-			// Create the form and add it to the form data
+			// Create the form
 			$this->createDefaultForm();
-			$formData = $this->form;
 
 			// Create the form from the data
-			$form = new Form( $formData );
+			$form = new Form( $this->form );
 
 			// Add our new form to the content
 			$this->data['content'] = (string)$form;
@@ -78,7 +77,8 @@ class Controller //extends Template
 			// If the form passes all the validation
 			if($form->valid == true)
 			{
-				/*print 'Post';
+				//*
+				print 'Post';
 				var_dump($_POST);
 
 				print 'Get';
@@ -405,22 +405,6 @@ class Controller //extends Template
 				'value'=>$this->t('Save')
 			);
 		}
-	}
-
-	/**
-	 * Clean any input before adding to the DB
-	 * @param $input
-	 * @return string
-	 */
-	protected function cleanInput($input)
-	{
-		// Trim the spaces from the beginning and end
-		$input = trim($input);
-
-		// Will take out strange chars eg Greek, German, etc chars
-		filter_var($input, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-
-		return $input;
 	}
 
 
