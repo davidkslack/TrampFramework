@@ -425,7 +425,7 @@ class Controller //extends Template
 
 
 	/**
-	 * Translation function
+	 * TODO: Translation function
 	 * Function will take in a string and test the language
 	 * If the language is EN then the string is returned
 	 * If the language is not EN then a lookup is made against the string and the language
