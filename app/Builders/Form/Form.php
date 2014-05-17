@@ -125,8 +125,6 @@ class Form
 			$this->valid = true;
 
 			$this->receivedData = $cleanedPost;
-
-			var_dump($this->receivedData);
 		}
 	}
 

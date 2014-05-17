@@ -78,11 +78,7 @@ class Controller //extends Template
 			if($form->valid == true)
 			{
 				//*
-				print 'Post';
-				var_dump($_POST);
-
-				print 'Get';
-				var_dump($_GET);
+				var_dump($form->receivedData);
 
 				exit;
 				//*/
