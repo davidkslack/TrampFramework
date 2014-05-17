@@ -267,7 +267,7 @@ class Controller //extends Template
 					);
 
 					// If this field must be a number then add the rule for numbers only
-					$this->form['content'][$rowInfo['Field']]['rules']['numbers'] = 'true';
+					$this->form['content'][$rowInfo['Field']]['rules']['number'] = 'true';
 
 					$help .= 'A number only should be used. ';
 				}

@@ -50,7 +50,7 @@ class FormValidation
 			case 'alphanumericExtras':
 				$this->validateAlphanumericExtras($testValue);
 				break;
-			case 'numbers':
+			case 'number':
 				$this->validateNumber($testValue);
 				break;
 			case 'letters':
