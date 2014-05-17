@@ -170,7 +170,18 @@ class Model extends Connect
 	 */
 	public function describe()
 	{
-		return $this->execute( 'DESCRIBE ' .$this->table );
+		//return $this->execute( 'DESCRIBE ' .$this->table );
+		return $this->execute( 'SHOW FULL COLUMNS FROM ' .$this->table );
+	}
+
+	/**
+	 * Describe the table
+	 * Shows the same as describe, but has more info eg comments
+	 * @return mixed
+	 */
+	public function describeExtra()
+	{
+		return $this->execute( 'SHOW FULL COLUMNS FROM ' .$this->table );
 	}
 
 }

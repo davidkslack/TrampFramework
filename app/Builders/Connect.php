@@ -78,6 +78,11 @@ class Connect {
 			if($describe !== false)
 				return $stmt->fetchAll();
 
+			// If we are using a select string then show the results
+			$describe = strpos($stmt->queryString, 'SHOW FULL COLUMNS');
+			if($describe !== false)
+				return $stmt->fetchAll();
+
 		}catch(\PDOException $e){
 			throw new \Exception($e->getMessage());
 		}
