@@ -175,6 +175,8 @@ class Messages extends System\Controller
 				),
 			);*/
 
+		// Override the form data
+
 		// Create the form from the data
 		$form = new Form( $formData );
 

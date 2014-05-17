@@ -351,6 +351,9 @@ class Controller //extends Template
 				// Add help if needed
 				if($help != '' && $this->form['content'][$rowInfo['Field']]['type'] != 'hidden')
 					$this->form['content'][$rowInfo['Field']]['help'] = $help;
+
+				// Add a value if we need to (will override the default)
+				// TODO: Must add request and cleanup before we do this
 			}
 
 			// Add the submit button
