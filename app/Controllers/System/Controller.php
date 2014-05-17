@@ -27,10 +27,10 @@ class Controller //extends Template
 	 */
 	private function defaultTemplateVars()
 	{
-		$this->data['title'] = 'Default Title';
-		$this->data['keywords'] = 'Default keywords';
-		$this->data['description'] = 'Default - the default description';
-		$this->data['bodyClass'] = 'default';
+		$this->data['title'] = $this->t('Default Title');
+		$this->data['keywords'] = $this->t('Default keywords');
+		$this->data['description'] = $this->t('Default - the default description');
+		$this->data['bodyClass'] = $this->t('default');
 	}
 
 	/**
@@ -57,10 +57,10 @@ class Controller //extends Template
 		{
 			// Make sure we use the default template vars
 			$this->defaultTemplateVars();
-			$this->data['title'] = 'Add';
+			$this->data['title'] = $this->t('Add');
 		}
 		else
-			$this->data['title'] .= ' - Add';
+			$this->data['title'] .= $this->t(' - Add');
 
 		// If we have a modal set we can use the add form
 		if(isset($this->model))
@@ -88,7 +88,7 @@ class Controller //extends Template
 				//*/
 
 				// Save the form
-				new Messages(array('success', 'Form was saved.'));
+				new Messages(array('success', $this->t('Form was saved.')));
 			}
 
 			// Show the template with default data
@@ -96,7 +96,7 @@ class Controller //extends Template
 		}
 		else
 		{
-			$this->data['content'] = 'Please add a model so we can add the default form.';
+			$this->data['content'] = $this->t('Please add a model so we can add the default form.');
 
 			// Show the template with default data
 			$this->show( 'index', $this->data );
@@ -113,8 +113,8 @@ class Controller //extends Template
 		$this->defaultTemplateVars();
 
 		// Edit the template vars
-		$this->data['title'] = 'Edit';
-		$this->data['content'] = 'Add the default edit form here';
+		$this->data['title'] = $this->t('Edit');
+		$this->data['content'] = $this->t('Add the default edit form here');
 
 		// Show the template with default data
 		$this->show( 'index', $this->data );
@@ -130,8 +130,8 @@ class Controller //extends Template
 		$this->defaultTemplateVars();
 
 		// Edit the template vars
-		$this->data['title'] = 'Delete';
-		$this->data['content'] = "Add the 'Are you sure?' here'";
+		$this->data['title'] = $this->t('Delete');
+		$this->data['content'] = $this->t("Add the 'Are you sure?' here'");
 
 		// Show the template with default data
 		$this->show( NULL, $this->data );
@@ -147,7 +147,7 @@ class Controller //extends Template
 		$this->defaultTemplateVars();
 
 		// Edit the template vars
-		$this->data['title'] = 'View';
+		$this->data['title'] = $this->t('View');
 
 		// The params should be an array and the first param should be the view ID
 		$id = 0;
@@ -253,7 +253,7 @@ class Controller //extends Template
 		}
 
 		// Error if anything is wrong
-		$this->outputJson(array('error','Incorrect token or referring IP'));
+		$this->outputJson(array('error',$this->t('Incorrect token or referring IP')));
 		exit;
 	}
 
@@ -330,7 +330,7 @@ class Controller //extends Template
 						'classes'=>'datetime form-control',
 					);
 
-					$help .= 'A date and/or time should be used. ';
+					$help .= $this->t('A date and/or time should be used. ');
 				}
 				else
 				{
@@ -354,7 +354,7 @@ class Controller //extends Template
 					if(isset($this->form['content'][$rowInfo['Field']]['label']))
 						$this->form['content'][$rowInfo['Field']]['label'] .= ' *';
 
-					$help .= 'This field is required. ';
+					$help .= $this->t('This field is required. ');
 				}
 
 				// Add the max if needed
@@ -378,7 +378,7 @@ class Controller //extends Template
 						$this->form['content'][$rowInfo['Field']]['value'] = date(DATEFORMAT);
 						$this->form['content'][$rowInfo['Field']]['placeholder'] = date(DATEFORMAT);
 
-						$help .= 'A default of todays date (' .date(DATEFORMAT) .') can be used. ';
+						$help .= $this->t('A default of todays date (' .date(DATEFORMAT) .') can be used. ');
 					}
 					else
 					{
@@ -386,7 +386,7 @@ class Controller //extends Template
 						$this->form['content'][$rowInfo['Field']]['value'] = $rowInfo['Default'];
 						$this->form['content'][$rowInfo['Field']]['placeholder'] = $rowInfo['Default'];
 
-						$help .= "A default of '" .$rowInfo['Default'] ."' can be used. ";
+						$help .= $this->t("A default of '" .$rowInfo['Default'] ."' can be used. ");
 					}
 				}
 
@@ -402,7 +402,7 @@ class Controller //extends Template
 			$this->form['content']['submit'] = array(
 				'type'=>'submit',
 				'label'=>'',
-				'value'=>'Save'
+				'value'=>$this->t('Save')
 			);
 		}
 	}
