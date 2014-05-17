@@ -38,7 +38,7 @@ class Model extends Connect
 		{
 			new \Builders\Messages(array('error', 'No data to add'));
 		}
-		elseif(isset($this->addData['id']))// If there is an id
+		elseif(isset($this->addData['id']) && $this->addData['id'] != '')// If there is an id
 		{
 			// If there is an id check it exists
 			$array = $this->get($this->addData['id']);
@@ -69,6 +69,8 @@ class Model extends Connect
 			->insert($this->addData)
 			->into($this->table);
 
+		var_dump($this->addData);
+		exit;
 		// Execute the query
 		return $this->execute( $this->query->getQuery() );
 	}

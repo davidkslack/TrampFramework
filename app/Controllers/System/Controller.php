@@ -77,13 +77,16 @@ class Controller //extends Template
 			// If the form passes all the validation
 			if($form->valid == true)
 			{
-				//*
+				/*
 				var_dump($form->receivedData);
 
 				exit;
 				//*/
 
 				// Save the form
+				$this->model->create($form->receivedData);
+
+				// Tell the user
 				new Messages(array('success', $this->t('Form was saved.')));
 			}
 
@@ -293,7 +296,7 @@ class Controller //extends Template
 					// Basic row in the form
 					$this->form['content'][$rowInfo['Field']] = array(
 						'type' => 'hidden',
-						'value' => 'NULL'
+						'value' => ''
 					);
 				}
 				// If we have an int, then create a number row
@@ -338,7 +341,7 @@ class Controller //extends Template
 				}
 
 				// Add required if needed
-				if($rowInfo['Null'] == 'NO')
+				if($rowInfo['Null'] == 'NO' && $rowInfo['Extra'] != 'auto_increment')
 				{
 					// Required
 					$this->form['content'][$rowInfo['Field']]['rules']['required'] = 'required';
