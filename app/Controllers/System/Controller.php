@@ -254,7 +254,8 @@ class Controller //extends Template
 				{
 					// Basic row in the form
 					$this->form['content'][$rowInfo['Field']] = array(
-						'type' => 'hidden'
+						'type' => 'hidden',
+						'value' => 'NULL'
 					);
 				}
 				// If we have an int, then create a number row
@@ -330,6 +331,7 @@ class Controller //extends Template
 					{
 						// Add the date
 						$this->form['content'][$rowInfo['Field']]['value'] = date(DATEFORMAT);
+						$this->form['content'][$rowInfo['Field']]['placeholder'] = date(DATEFORMAT);
 
 						$help .= 'A default of todays date (' .date(DATEFORMAT) .') can be used. ';
 					}
@@ -337,6 +339,7 @@ class Controller //extends Template
 					{
 						// Add the default as the value
 						$this->form['content'][$rowInfo['Field']]['value'] = $rowInfo['Default'];
+						$this->form['content'][$rowInfo['Field']]['placeholder'] = $rowInfo['Default'];
 
 						$help .= "A default of '" .$rowInfo['Default'] ."' can be used. ";
 					}
