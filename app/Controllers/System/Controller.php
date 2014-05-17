@@ -263,8 +263,11 @@ class Controller //extends Template
 				{
 					$this->form['content'][$rowInfo['Field']] = array(
 						'type' => 'number',
-						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) )
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) ),
 					);
+
+					// If this field must be a number then add the rule for numbers only
+					$this->form['content'][$rowInfo['Field']]['rules']['numbers'] = 'true';
 
 					$help .= 'A number only should be used. ';
 				}
