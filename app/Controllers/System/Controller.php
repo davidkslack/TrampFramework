@@ -362,7 +362,20 @@ class Controller //extends Template
 				'label'=>'',
 				'value'=>'Save'
 			);
-
 		}
+	}
+
+	/**
+	 * Translation function
+	 * Function will take in a string and test the language
+	 * If the language is EN then the string is returned
+	 * If the language is not EN then a lookup is made against the string and the language
+	 * and the translated string is returned
+	 * @param $string
+	 * @return mixed
+	 */
+	public function t( $string )
+	{
+		return $string;
 	}
 } 
