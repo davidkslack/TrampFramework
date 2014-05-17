@@ -301,12 +301,8 @@ class Controller //extends Template
 					// Required
 					$this->form['content'][$rowInfo['Field']]['rules']['required'] = 'required';
 
-					if( strpos($rowInfo['Type'], 'int') === false )
-						// Add the minlength
-						$this->form['content'][$rowInfo['Field']]['rules']['minlength'] = '1';
-					else
-						// Min
-						$this->form['content'][$rowInfo['Field']]['rules']['min'] = '1';
+					// Add the minlength
+					$this->form['content'][$rowInfo['Field']]['rules']['minlength'] = '1';
 
 					// Add a star to the label
 					if(isset($this->form['content'][$rowInfo['Field']]['label']))
@@ -321,12 +317,8 @@ class Controller //extends Template
 					// Get the number from the field
 					$number =  filter_var($rowInfo['Type'], FILTER_SANITIZE_NUMBER_INT);
 
-					if( strpos($rowInfo['Type'], 'int') === false )
-						// Add the maxlength
-						$this->form['content'][$rowInfo['Field']]['rules']['maxlength'] = $number;
-					else
-						// max
-						$this->form['content'][$rowInfo['Field']]['rules']['max'] = $number;
+					// Add the maxlength
+					$this->form['content'][$rowInfo['Field']]['rules']['maxlength'] = $number;
 
 					$help .= 'Must be a MAX of ' .$number .'. ';
 				}
