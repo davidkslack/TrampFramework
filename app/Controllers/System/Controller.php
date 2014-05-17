@@ -218,6 +218,7 @@ class Controller //extends Template
 	/**
 	 * Create a default form
 	 * If we have a model we can assume we will need to edit/add to the model
+	 * TODO: Move into own class??
 	 */
 	protected function createDefaultForm()
 	{
@@ -236,17 +237,133 @@ class Controller //extends Template
 				'id' => $className .'Form',
 				'classes' => 'validate form-horizontal'
 			);
+			//*
+			var_dump($tableRowInfo);
+			exit;
+			//*/
 
 			// Loop through the table and create the from
 			foreach($tableRowInfo as $rowInfo)
 			{
-				//$rowInfo
-				$this->form['content'][$rowInfo['Field']] = array(
+				// Help
+				$help = '';
+
+				// Hide the ID field if there is one
+				if($rowInfo['Field'] == 'id' && $rowInfo['Key'] == 'PRI' &&  $rowInfo['Extra'] == 'auto_increment' )
+				{
+					// Basic row in the form
+					$this->form['content'][$rowInfo['Field']] = array(
+						'type' => 'hidden'
+					);
+				}
+				// If we have an int, then create a number row
+				elseif( strpos($rowInfo['Type'], 'int') !== false )
+				{
+					$this->form['content'][$rowInfo['Field']] = array(
+						'type' => 'number',
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) )
+					);
+
+					$help .= 'A number only should be used. ';
+				}
+				// If we have a text field, then create a textarea row
+				elseif( strpos($rowInfo['Type'], 'text') !== false )
+				{
+					$this->form['content'][$rowInfo['Field']] = array(
+						'type' => 'textarea',
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) )
+					);
+				}
+				// If we have a timestamp field, then create a datetime row with default as today
+				elseif( strpos($rowInfo['Type'], 'timestamp') !== false )
+				{
+					$this->form['content'][$rowInfo['Field']] = array(
+						'type'=>'datetime',
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) ),
+						'classes'=>'datetime form-control',
+					);
+
+					$help .= 'A date and/or time should be used. ';
+				}
+				else
+				{
+					// Basic row in the form
+					$this->form['content'][$rowInfo['Field']] = array(
 						'type' => 'text',
 						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) )
+					);
+				}
 
-				);
+				// Add required if needed
+				if($rowInfo['Null'] == 'NO')
+				{
+					// Required
+					$this->form['content'][$rowInfo['Field']]['rules']['required'] = 'required';
+
+					if( strpos($rowInfo['Type'], 'int') === false )
+						// Add the minlength
+						$this->form['content'][$rowInfo['Field']]['rules']['minlength'] = '1';
+					else
+						// Min
+						$this->form['content'][$rowInfo['Field']]['rules']['min'] = '1';
+
+					// Add a star to the label
+					if(isset($this->form['content'][$rowInfo['Field']]['label']))
+						$this->form['content'][$rowInfo['Field']]['label'] .= ' *';
+
+					$help .= 'This field is required. ';
+				}
+
+				// Add the max if needed
+				if(strpos($rowInfo['Type'], '('))
+				{
+					// Get the number from the field
+					$number =  filter_var($rowInfo['Type'], FILTER_SANITIZE_NUMBER_INT);
+
+					if( strpos($rowInfo['Type'], 'int') === false )
+						// Add the maxlength
+						$this->form['content'][$rowInfo['Field']]['rules']['maxlength'] = $number;
+					else
+						// max
+						$this->form['content'][$rowInfo['Field']]['rules']['max'] = $number;
+
+					$help .= 'Must be a MAX of ' .$number .'. ';
+				}
+
+				// Add the default if needed
+				if(isset($rowInfo['Default']))
+				{
+					if($rowInfo['Default'] == 'CURRENT_TIMESTAMP')
+					{
+						// Add the date
+						$this->form['content'][$rowInfo['Field']]['value'] = date(DATEFORMAT);
+
+						$help .= 'A default of todays date (' .date(DATEFORMAT) .') can be used. ';
+					}
+					else
+					{
+						// Add the default as the value
+						$this->form['content'][$rowInfo['Field']]['value'] = $rowInfo['Default'];
+
+						$help .= "A default of '" .$rowInfo['Default'] ."' can be used. ";
+					}
+				}
+
+				//TODO: If there is a message we should add it to the help
+
+
+				// Add help if needed
+				if($help != '' && $this->form['content'][$rowInfo['Field']]['type'] != 'hidden')
+					$this->form['content'][$rowInfo['Field']]['help'] = $help;
 			}
+
+			// Add the submit button
+			$this->form['content']['submit'] = array(
+				'type'=>'submit',
+				'label'=>'',
+				'value'=>'Save'
+			);
+
 		}
 	}
 } 
