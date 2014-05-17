@@ -226,7 +226,8 @@ class Controller //extends Template
 		if(is_object($this->model))
 		{
 			// Get the default table info
-			$tableRowInfo = $this->model->describe();
+			//$tableRowInfo = $this->model->describe(); // Faster / less info
+			$tableRowInfo = $this->model->describeExtra(); // Slower / more info
 
 			// Get the class name
 			$className = explode( '\\', get_class($this) );
@@ -237,16 +238,16 @@ class Controller //extends Template
 				'id' => $className .'Form',
 				'classes' => 'validate form-horizontal'
 			);
-			//*
-			var_dump($tableRowInfo);
-			exit;
-			//*/
 
 			// Loop through the table and create the from
 			foreach($tableRowInfo as $rowInfo)
 			{
 				// Help
 				$help = '';
+
+				// If there is a message we should add it to the help
+				if(isset($rowInfo['Comment']) && $rowInfo['Comment'] != '')
+					$help .= $rowInfo['Comment'] .'. ';
 
 				// Hide the ID field if there is one
 				if($rowInfo['Field'] == 'id' && $rowInfo['Key'] == 'PRI' &&  $rowInfo['Extra'] == 'auto_increment' )
@@ -348,9 +349,6 @@ class Controller //extends Template
 						$help .= "A default of '" .$rowInfo['Default'] ."' can be used. ";
 					}
 				}
-
-				//TODO: If there is a message we should add it to the help
-
 
 				// Add help if needed
 				if($help != '' && $this->form['content'][$rowInfo['Field']]['type'] != 'hidden')
