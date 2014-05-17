@@ -433,7 +433,7 @@ class Controller //extends Template
 	 * @param $string
 	 * @return mixed
 	 */
-	public function t( $string )
+	protected function t( $string )
 	{
 		return $string;
 	}
