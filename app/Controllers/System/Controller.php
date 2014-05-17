@@ -366,6 +366,23 @@ class Controller //extends Template
 	}
 
 	/**
+	 * Clean any input before adding to the DB
+	 * @param $input
+	 * @return string
+	 */
+	protected function cleanInput($input)
+	{
+		// Trim the spaces from the beginning and end
+		$input = trim($input);
+
+		// Will take out strange chars eg Greek, German, etc chars
+		filter_var($input, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+
+		return $input;
+	}
+
+
+	/**
 	 * Translation function
 	 * Function will take in a string and test the language
 	 * If the language is EN then the string is returned
