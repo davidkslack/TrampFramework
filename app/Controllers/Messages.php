@@ -182,6 +182,7 @@ class Messages extends System\Controller
 		$this->data['content'] = (string)$form;
 
 		// Check the form is valid and if so save it
+		//TODO: $this->request, $this->request->get and $this->request->post need to be created so we can save the form
 		if($form->valid == true)
 		{
 			// Save the form
