@@ -51,7 +51,6 @@ class Controller //extends Template
 	 */
 	public function add()
 	{
-
 		// If we have no title we should add one
 		if(!isset($this->data['title']))
 		{
@@ -84,7 +83,7 @@ class Controller //extends Template
 				//*/
 
 				// Save the form
-				$this->model->create($form->receivedData);
+				$this->model->add($form->receivedData);
 
 				// Tell the user
 				new Messages(array('success', $this->t('Form was saved.')));

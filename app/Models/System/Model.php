@@ -69,8 +69,6 @@ class Model extends Connect
 			->insert($this->addData)
 			->into($this->table);
 
-		var_dump($this->addData);
-		exit;
 		// Execute the query
 		return $this->execute( $this->query->getQuery() );
 	}

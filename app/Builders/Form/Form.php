@@ -141,6 +141,8 @@ class Form
 
 		// Will encode chars so we have no issues with scripts running
 		$input = filter_var_array($input, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		// If we have a submit button we need to remove it
+		unset($input['submit']);
 
 		return $input;
 	}
