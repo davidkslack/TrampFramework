@@ -58,10 +58,9 @@
 			<ul class="nav nav-sidebar">
 				<li class="active"><a href="/">Home</a></li>
 				<li><a href="/admin/">Admin Home</a></li>
-				<li><a href="/admin/user">Users</a></li>
-				<li><a href="/admin/user/add">User add</a></li>
 				<li><a href="/admin/messages">Messages</a></li>
 				<li><a href="/admin/messages/add">Add Messages</a></li>
+				<li><a href="/api/messages/rog85dvnt8e9btv3rsaas">Messages jSon</a></li>
 			</ul>
 		</div>
 
