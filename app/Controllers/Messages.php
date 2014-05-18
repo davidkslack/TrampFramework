@@ -84,7 +84,10 @@ class Messages extends System\Controller
 		$this->redirect('/admin/messages/');
 	}
 
-	/*public function add()
+	/**
+	 * Add a row into the messages table
+	 *
+	public function add()
 	{
 		$this->data['title'] = 'Add messages';
 		$this->data['content'] = "";
@@ -199,7 +202,7 @@ class Messages extends System\Controller
 
 		// Call the view with the the data to add in
 		$this->show( 'add', $this->data );
-	}
+	}//*/
 
 	/**
 	 * Describe the messages table
@@ -212,5 +215,5 @@ class Messages extends System\Controller
 
 		// Call the view with the the data to add in
 		$this->show( 'index', $this->data );
-	}
+	}//*/
 } 

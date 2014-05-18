@@ -11,11 +11,6 @@ use Models\Messages;
 
 class Api extends System\Controller
 {
-	function __construct()
-	{
-		parent::__construct();
-	}
-
 	/**
 	 * Show the first 100 messages as json
 	 * @param $params array

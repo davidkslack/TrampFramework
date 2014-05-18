@@ -9,7 +9,7 @@ namespace Controllers\System;
 use Builders\Messages;
 use Builders\Form\Form;
 
-class Controller //extends Template
+class Controller
 {
 	private $viewFile;
 	private $view = '';
@@ -64,28 +64,22 @@ class Controller //extends Template
 		// If we have a modal set we can use the add form
 		if(isset($this->model))
 		{
-			// Create the form
+			// Create the default form array (fount in $this->form)
 			$this->createDefaultForm();
 
-			// Create the form from the data
+			// Create the form from the form data
 			$form = new Form( $this->form );
 
-			// Add our new form to the content
+			// Add our new form to the view content
 			$this->data['content'] = (string)$form;
 
-			// If the form passes all the validation
+			// If the form has been sent and passes all the validation
 			if($form->valid == true)
 			{
-				/*
-				var_dump($form->receivedData);
-
-				exit;
-				//*/
-
-				// Save the form
+				// Save the form data to the database
 				$this->model->add($form->receivedData);
 
-				// Tell the user
+				// Tell the user all is fine
 				new Messages(array('success', $this->t('Form was saved.')));
 			}
 
@@ -162,9 +156,43 @@ class Controller //extends Template
 	}
 
 	/**
+	 * Output any array as json
+	 * @param array $data
+	 */
+	protected function outputJson( $data = array())
+	{
+		header('Content-Type', 'application/json');
+		print json_encode($data);
+	}
+
+	/**
+	 * Output any array as json, but test for token and IP first
+	 * @param array $params
+	 * @param array $data
+	 */
+	protected function outputSecureJson($params, $data = array())
+	{
+		// If the token and the referring IP match we are good to go
+		if($this->testToken($params))
+		{
+			header('Content-Type', 'application/json');
+			print json_encode($data);
+		}
+	}
+
+	/**
+	 * Redirect the user
+	 */
+	protected function redirect($to)
+	{
+		header('Location: ' .$to);
+		exit;
+	}
+
+	/**
 	 * Put the view together
 	 */
-	public function createView()
+	protected function createView()
 	{
 		if($this->viewFile != NULL)
 		{
@@ -179,7 +207,7 @@ class Controller //extends Template
 	/**
 	 * Show the template
 	 */
-	public function show( $view=NULL, $content=NULL )
+	protected function show( $view=NULL, $content=NULL )
 	{
 		// Create messages to show in the view
 		$messageBuilder = new Messages();
@@ -193,40 +221,6 @@ class Controller //extends Template
 
 		// Create the template
 		$this->template = new Template($this->view, $content);
-	}
-
-	/**
-	 * Redirect the user
-	 */
-	public function redirect($to)
-	{
-		header('Location: ' .$to);
-		exit;
-	}
-
-	/**
-	 * Output any array as json
-	 * @param array $data
-	 */
-	public function outputJson( $data = array())
-	{
-		header('Content-Type', 'application/json');
-		print json_encode($data);
-	}
-
-	/**
-	 * Output any array as json, but test for token and IP first
-	 * @param array $params
-	 * @param array $data
-	 */
-	public function outputSecureJson($params, $data = array())
-	{
-		// If the token and the referring IP match we are good to go
-		if($this->testToken($params))
-		{
-			header('Content-Type', 'application/json');
-			print json_encode($data);
-		}
 	}
 
 	/**
