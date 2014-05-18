@@ -279,6 +279,9 @@ class Controller //extends Template
 				'classes' => 'validate form-horizontal'
 			);
 
+			//var_dump($tableRowInfo);
+			//exit;
+
 			// Loop through the table and create the from
 			foreach($tableRowInfo as $rowInfo)
 			{
@@ -326,6 +329,34 @@ class Controller //extends Template
 						'type'=>'datetime',
 						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) ),
 						'classes'=>'datetime form-control',
+					);
+
+					$help .= $this->t('A date and/or time should be used. ');
+				}
+				// If we have an enum field, then create a datetime row with a select list
+				elseif( strpos($rowInfo['Type'], 'enum') !== false )
+				{
+					// Get the options from the enum
+					$options = trim( $rowInfo['Type'], ")");
+					$options = trim( $options, "enum(");
+					$options = explode(',', $options);
+
+					// Go through the options and format them correctly
+					foreach($options as $key => $value)
+					{
+						$newKey = substr($value, 1, -1);
+						$newTitle = ucfirst($newKey);
+						$options[$newKey] = $newTitle;
+
+						// Unset the old option
+						unset($options[$key]);
+					}
+
+					// Create the select list
+					$this->form['content'][$rowInfo['Field']] = array(
+						'type'=>'select',
+						'label' => ucfirst( str_replace('_', ' ', $rowInfo['Field']) ),
+						'options'=>$options
 					);
 
 					$help .= $this->t('A date and/or time should be used. ');
