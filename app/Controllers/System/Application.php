@@ -20,11 +20,11 @@ class Application
 		// Get the route
 		$this->routeUrl();
 
-		// If there is a controller then we should use it
+		// Test the user should see this page
+
+		// If there is a controller then we should use it, else use main
 		if (!$this->route_controller)
-		{
 			$this->route_controller = 'Main';
-		}
 
 		// Create a new object from the route controller
 		$controller = 'Controllers\\' .$this->route_controller;
@@ -32,9 +32,7 @@ class Application
 
 		// If we have no action, use the index action
 		if( !$this->route_action )
-		{
 			$this->route_action = 'index';
-		}
 		// If we have an action, but no method to go with it
 		elseif( !method_exists( $this->route_controller, $this->route_action ) )
 		{
@@ -79,7 +77,7 @@ class Application
 				// Route to the correct constructor
 				$this->route();
 			}
-			else // We are not in the admin and must deal with the frontend
+			else // We are not in the admin or api and must deal with the frontend
 			{
 				// We are on the frontend (not admin) and can deal with this
 			}
